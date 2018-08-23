@@ -1,0 +1,337 @@
+#+TITLE: Linux/Unix Command and Bash Scripting Overview
+#+AUTHOR: Eric Leung
+#+DATE: 2018-08-11
+#+BABEL: :results output replace :exports results :tangle yes
+
+* Unix and Linux Background
+
+- Unix is operating system developed at Bell labs in 1970s
+
+- Linux developed in 1991 by Finnish-American programmer and computer scientist
+  Linus Torvalds
+  - Linux and derivations are Unix-like, which act very much like original Unix
+    operating system
+
+- Multiple "flavors" of Linux with different purposes and uses
+  - Ubuntu = general purpose
+  - elementary OS = fast and open replacement for Windows and macOS
+  - Arch Linux = simple, lightweight distribution
+  - More at https://distrowatch.com/
+
+- Linux mascot is Tux the penguin
+
+* Basic Linux Commands
+** Navigation Commands
+
+When you're confronted with a terminal, here are a few basic commands to get
+you around your computer.
+
+| Command | Description             | Plain Words                         |
+|---------+-------------------------+-------------------------------------|
+| pwd     | Print working directory | Your location in your computer      |
+| ls      | List directory contents | Look at what's around your location |
+| cd      | Change directory        | Move your position in your computer |
+
+In sum, the above commands help you navigate around your computer.
+
+*** pwd
+
+You can use ~pwd~ to show you where you are in your computer.
+
+#+BEGIN_SRC sh
+  pwd
+#+END_SRC
+
+#+RESULTS:
+
+*** ls
+
+After knowing where you are, you should find out what files and directories are
+around you.
+
+You can use various options to change the output depending on what is
+interesting to you.
+
+| Option | Description                          |
+|--------+--------------------------------------|
+| -l     | Format into a list                   |
+| -a     | List all files e.g. hidden dot files |
+| -t     | Order by last time modified          |
+| -r     | Reverse order results                |
+| -X     | Group by file type/extension         |
+
+#+BEGIN_SRC sh
+  ls
+#+END_SRC
+
+*** cd
+
+It is no use if you can't go any where, so let's start moving around the
+computer using ~cd~.
+
+Here are some key character to know when using ~cd~.
+
+- ~.~ (single period) = this is where you are currently
+  - E.g. ~cd .~ = stays where you are
+- ~..~ (double period) = go up the parent directory
+  - E.g. ~cd ..~ = goes up
+
+#+BEGIN_SRC sh
+  pwd
+  cd ../
+  pwd
+#+END_SRC
+
+** File Manipulations
+
+Once you're able to move aroudn you computer, let's move around files and
+perform very simple changes to your files.
+
+| Command | Description                  | Plain Words                        |
+|---------+------------------------------+------------------------------------|
+| touch   | Change file timestamps       | Create new file if none existed    |
+| cp      | Copy files and directories   | Make clones of everything          |
+| mv      | Move (and rename) files      | Change where files are in computer |
+| rm      | Remove files or directorires | Delete files and be cautious using |
+| mkdir   | Make directories             | Create new positions/folders       |
+| rmdir   | Remove empty directories     | Remove empty folders on computer   |
+
+In sum, the above commands help create, move, and delete files and directories.
+
+*** touch
+
+Moving around your computer is great and all, but without files to open and
+edit, it can be kind of boring.
+
+The ~touch~ command is used for creating empty files quickly.
+
+This can be useful in creating a skeleton of an analysis workflow.
+
+#+BEGIN_SRC sh
+  touch new_file_1.txt
+#+END_SRC
+
+
+  mv new_file_1.txt new_dir/
+  rm new_file_2.txt
+
+*** cp
+
+Now that we have some files, you can create more with ~cp~.
+
+The ~cp~ command is used to *copy* files and directories.
+
+#+BEGIN_SRC sh
+  cp new_file_1.txt new_file_2.txt
+  ls
+#+END_SRC
+
+*** mv
+
+The ~mv~ command is used to *move* files and directories around your computer.
+
+Another use for this command is to *rename* things on your computer.
+
+#+BEGIN_SRC sh
+  mv new_file_2.txt new_file_2_update.txt
+  ls
+#+END_SRC
+
+*** rm
+
+The ~rm~ command *removes*/*deletes* files and directories around your
+computer.
+
+This command is very powerful so use with caution. There are lots of jokes with
+telling new coders to just delete their entire computer or database. Don't fall
+for this.
+
+#+BEGIN_SRC sh
+  rm new_file_2_update.txt
+  ls
+#+END_SRC
+
+*** mkdir and rmdir
+
+Creating lots of files can get messy, so having an organization structure with
+folders can help keep your files tidy.
+
+The ~mkdir~ command *makes* directories, while the ~rmdir~ command *removes*
+(empty) directories.
+
+#+BEGIN_SRC
+  mkdir new_dir
+  cd new_dir
+  pwd
+#+END_SRC
+
+** File Permissions
+
+#+BEGIN_SRC sh
+  chmod
+#+END_SRC
+
+#+CAPTION: Summary of write persmissions and numbers.
+#+NAME: fig:chmod
+| Number | Permission               | rwx | Binary |
+|--------+--------------------------+-----+--------|
+|      7 | read, write, and execute | rwx |    111 |
+|      6 | read and write           | rw- |    110 |
+|      5 | read and execute         | r-x |    101 |
+|      4 | read only                | r-- |    100 |
+|      3 | write and execute        | -wx |    011 |
+|      2 | write only               | -w- |    010 |
+|      1 | execute only             | --x |    001 |
+|      0 | none                     | --- |    000 |
+
+** Environment
+
+#+BEGIN_SRC sh
+  which python
+#+END_SRC
+
+#+RESULTS:
+: /usr/bin/python
+
+#+BEGIN_SRC sh
+  echo $PATH
+  PATH=~/bin:$PATH
+  echo $PATH
+#+END_SRC
+
+Close your terminal. Are changes to your path still there?
+
+* Redirect Input and Output
+** Standard Streams
+
+STDIN, STDOUT, STDERR
+
+** Pipe
+
+#+BEGIN_SRC sh
+ls | grep "Make"
+#+END_SRC
+
+#+RESULTS:
+
+More: [[https://en.wikipedia.org/wiki/Pipeline_(Unix)]]
+
+* File Manipulation with Built-In Tools
+** awk
+
+** sed
+
+** cut
+
+** find
+
+* File Transfer and Interacting with the Web and Servers
+
+** curl and wget
+
+More: https://daniel.haxx.se/docs/curl-vs-wget.html
+
+** scp and sftp
+* Miscellaneously Useful Tools
+** Screen and tmux
+
+~Screen~ and ~tmux~ are called "terminal multiplexers".
+
+This is a fancy way of describing how to use a single terminal window and
+create new terminals from within it, without opening another window.
+
+Here are some benefits to using a terminal multiplexer:
+
+- Quickly switch between contexts
+- Use when network connection unreliable
+- Pick up progress quickly on a server when you login
+
+**** Screen
+
+**** tmux
+
+*** Resources and More
+
+- Manuals
+  - [[https://www.gnu.org/software/screen/manual/html_node/index.html][Screen User's Manual]]
+  - [[https://github.com/tmux/tmux/wiki][tmux GitHub Wiki]]
+- Screen tutorials
+  - [[https://www.linode.com/docs/networking/ssh/using-gnu-screen-to-manage-persistent-terminal-sessions/][Using GNU Screen to Manage Persistent Terminal Sessions - linode]]
+  - [[https://www.mattcutts.com/blog/a-quick-tutorial-on-screen/][A quick tutorial on screen - Matt Cutts]]
+  - [[https://dev.to/thiht/learn-to-use-screen-a-terminal-multiplexer-gl][Learn to use screen, a terminal multiplexer - dev.to]]
+- tmux tutorials
+  - [[https://robots.thoughtbot.com/a-tmux-crash-course][A tmux Crash Course - thoughtbot]]
+  - [[https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/][A Quick and Easy Guide to tmux - Ham Vocke]]
+  - [[https://danielmiessler.com/study/tmux/][A tmux Primer - Daniel Miessler]]
+- Comparing terminal multiplexers
+  - [[https://superuser.com/a/236160][tmux vs screen - supepruser]]
+- More
+  - [[https://leanpub.com/the-tao-of-tmux/read][The Tao of tmux - Leanpub]]
+
+** GNU Make 
+
+In programming, we want to no repeat ourselves. So people made GNU ~make~ as an
+automation (build) tool.
+
+This was initially used to systematically build and compile complex programs
+with lots of dependencies. You will see this a lot with C/C++ programs.
+
+However, this tool can also be used in automating tasks for data analysis and
+describe exactly what you've done.
+
+#+BEGIN_SRC text
+rule : dependencies
+    commands ...
+#+END_SRC
+
+#+BEGIN_SRC makefile
+article.html : article.md
+     pandoc -i article.md -o article.html
+#+END_SRC
+
+A slightly better and more robust rule.
+
+#+BEGIN_SRC makefile
+all : article.html
+
+%.html : %.md
+    pandoc -i $< -o $@
+#+END_SRC
+
+Using the above ~Makefile~, you can use the command ~make all~ in the command
+line to run the rule.
+
+* Summary
+
+| Command/Term | Simple Description               |
+|--------------+----------------------------------|
+| pwd          | Displays current directory       |
+| ls           | Display files in directory       |
+| cd           | Change current directory         |
+| touch        | Update file or create new file   |
+| cp           | Copy files and directories       |
+| mv           | Move files and directories       |
+| rm           | Delete files and directories     |
+| mkdir        | Create new directory             |
+| rmdir        | Remove empty directory           |
+| STDIN        | Input going into program         |
+| STDOUT       | Output coming out of programs    |
+| STDERR       | Error messages                   |
+| Pipe         | Pass text between commands       |
+| awk          | Process text in tabular form     |
+| sed          | Edit streams of data             |
+| cut          | Divide file by column/delimiters |
+| find         | Search for files                 |
+| curl         | Transfer data                    |
+| wget         | Retrieves contents from servers  |
+
+* Exercises
+
+
+* Resources and More
+
+- [[http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html][Bash Guide for Beginners]]
+- [[https://github.com/stephenturner/oneliners][Bioinformatics One-Liners by Stephen Turner]]
+- [[http://mywiki.wooledge.org/BashPitfalls][Bash Pitfalls - Common Errors Bash Programmers Make]]
+- [[https://github.com/denysdovhan/bash-handbook][bash-handbook (GitHub)]]
+- [[https://github.com/awesome-lists/awesome-bash][Awesome Bash (GitHub)]]
