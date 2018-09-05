@@ -20,6 +20,11 @@
 
 - Linux mascot is Tux the penguin
 
+- Linux is widely used in scientific computing
+  - Free (price and in source code) operating system
+  - Decades of development and debugging
+  - Configuration is arguably easier
+
 * Basic Linux Commands
 ** Navigation Commands
 
@@ -64,6 +69,8 @@ interesting to you.
   ls
 #+END_SRC
 
+#+RESULTS:
+
 *** cd
 
 It is no use if you can't go any where, so let's start moving around the
@@ -71,9 +78,9 @@ computer using ~cd~.
 
 Here are some key character to know when using ~cd~.
 
-- ~.~ (single period) = this is where you are currently
+- . (single period) :: this is where you are currently
   - E.g. ~cd .~ = stays where you are
-- ~..~ (double period) = go up the parent directory
+- .. (double period) :: go up the parent directory
   - E.g. ~cd ..~ = goes up
 
 #+BEGIN_SRC sh
@@ -109,11 +116,10 @@ This can be useful in creating a skeleton of an analysis workflow.
 
 #+BEGIN_SRC sh
   touch new_file_1.txt
+  ls
 #+END_SRC
 
-
-  mv new_file_1.txt new_dir/
-  rm new_file_2.txt
+#+RESULTS:
 
 *** cp
 
@@ -159,10 +165,21 @@ folders can help keep your files tidy.
 The ~mkdir~ command *makes* directories, while the ~rmdir~ command *removes*
 (empty) directories.
 
-#+BEGIN_SRC
+Let's create a new directory with ~mkdir~.
+
+#+BEGIN_SRC sh
   mkdir new_dir
   cd new_dir
   pwd
+#+END_SRC
+
+We may eventually want to remove a directory for various reasons. We can remove
+*empty* directories using the ~rmdir~ command, which is similar and more
+limited than the ~rm~ command we just learned about.
+
+#+BEGIN_SRC sh
+  rmdir new_dir
+  ls
 #+END_SRC
 
 ** File Permissions
