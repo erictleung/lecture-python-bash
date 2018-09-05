@@ -184,31 +184,188 @@ limited than the ~rm~ command we just learned about.
 
 ** File Permissions
 
+File permissions can be a foreign concept, especially when you've never
+encountered them before or it's never affected you.
+
+Some uses of file permissions you may encounter are:
+
+- limit certain files for particular people
+- limit who can modify files or directories
+
+In sum, file permissions are useful for enabling a bit of security by
+controlling what files can be accessed and use by who.
+
+File permissions are properties of every file/directory on your computer and
+dictate *what* (type of action) can be done by *who* (groups). There are three
+groups for each type of action and types of groups.
+
+
+*** Permission Types
+
+There are three permission types:
+
+- read (r) :: user's capability to read the contents of file/directory
+- write (w) :: user's capability to write or change a file/directory
+- execute (x) :: user's capability to execute a file or view the contents of a
+                 directory
+
+
+*** Permission Groups
+
+There are three permission groups:
+
+- owner/user (u) :: personal owner of the file/directory
+- group (g) :: group of users who have access to file/directory
+- other users (o) :: users not in file's group
+- all users (a) :: what is accessible to any user, independent of group
+
+
+*** chmod
+
+Let's create file to play around with its file permissions.
+
 #+BEGIN_SRC sh
-  chmod
+  touch restricted_file.txt
+  ls -l
 #+END_SRC
 
-#+CAPTION: Summary of write persmissions and numbers.
-#+NAME: fig:chmod
-| Number | Permission               | rwx | Binary |
-|--------+--------------------------+-----+--------|
-|      7 | read, write, and execute | rwx |    111 |
-|      6 | read and write           | rw- |    110 |
-|      5 | read and execute         | r-x |    101 |
-|      4 | read only                | r-- |    100 |
-|      3 | write and execute        | -wx |    011 |
-|      2 | write only               | -w- |    010 |
-|      1 | execute only             | --x |    001 |
-|      0 | none                     | --- |    000 |
+The ~chmod~ command stands for *change file mode*, which refers to the number
+of modes (or types) of permissions a file can have.
 
-** Environment
+This allows you to specify *who* has which permission *type*.
+
+There are two ways to manipulate a file/directory's:
+
+- Octal representation :: using binary and numbers
+- Symbolic representation :: letters and semantics (easier to remember, IMO)
+
+**** Update with octal representation
+
+Octal representation makes use of a base-8 number system to represent the three
+types of permissions for each of the groups. Each base-8 number is a digit from
+0 to 7.
+
+The power of this representation is in its conciseness, representing all
+possible combination of permission types into one number.
+
+Each number can be constructed using *three binary numbers* from each of the
+three types of permissions.
+
+Table below summarized all possible combinations.
+
+#+CAPTION: Summary of write persmissions and numbers, read from left to right.
+#+NAME: fig:chmod
+| Permission               | rwx | Binary | Number |
+|--------------------------+-----+--------+--------|
+| read, write, and execute | rwx |    111 |      7 |
+| read and write           | rw- |    110 |      6 |
+| read and execute         | r-x |    101 |      5 |
+| read only                | r-- |    100 |      4 |
+| write and execute        | -wx |    011 |      3 |
+| write only               | -w- |    010 |      2 |
+| execute only             | --x |    001 |      1 |
+| none                     | --- |    000 |      0 |
+
+Another way to look at this is using just numbers:
+
+- read = 4
+- write = 2
+- execute = 1
+
+When crafting the correct number, you can follow this general workflow:
+
+- figure out what kind of permissions you want,
+- organize these permissions into the structure (read, write, execute),
+- translate values to binary,
+- translate binary to octal.
+
+Each number can then be used to represent each of the three categories of
+people: user, group, and others (in that order).
+
+For example, to give *read,write* (4 + 2 = 6) to user and just *read* (4) to
+both group and others, you can run the following command with ~chmod~:
+
+#+BEGIN_SRC sh
+  chmod 644 restricted_file.txt
+  ls -l
+#+END_SRC
+
+
+**** Update using symbolic representation
+
+You can also use what is called symbolic representation to modify permissions.
+
+This can be easier to remember and use because you don't have to remember which
+permission equals what number and how to put together the number as well.
+
+All you need to remeber are letters for both the different roles.
+
+| Letter | Role   |
+|--------+--------|
+| u      | user   |
+| g      | group  |
+| o      | others |
+
+And different permissions:
+
+| Letter | Permission |
+|--------+------------|
+| r      | read       |
+| w      | write      |
+| x      | execute    |
+
+All you need now is to use the following arithmetic symbols to change the
+permissions:
+
+- + :: add permission in addition to current permissions
+- - :: remove permission from current permissions
+- = :: add and remove unmentioned permissions
+
+To do the same from above
+
+#+BEGIN_QUOTE
+...to give *read,write* (4 + 2 = 6) to user and just *read* (4) to both group
+and others, ...
+#+END_QUOTE
+
+you can run the following:
+
+#+BEGIN_SRC sh
+  chmod u=rw,g=r,o=r restricted_file.txt
+  ls -l
+#+END_SRC
+
+**** More Examples
+
+- [[https://www.thegeekstuff.com/2010/06/chmod-command-examples/][7 Chmod Command Examples for Beginners (The Geek Stuff)]]
+- [[https://www.thegeekstuff.com/2010/04/unix-file-and-directory-permissions/][Beginners Guide to File and Directory Permissions (The Geek Stuff)]]
+- [[http://examplenow.com/chmod/][Examples of chmod (examplenow)]]
+
+** Environment Variables
+
+Environment variables hold information for your computer to read and make
+decisions about.
+
+You can use the ~env~ command to see all created environmental variables.
+
+One important environmental variable is your ~PATH~ variable. This variable
+controls how your computer searches for programs/software.
 
 #+BEGIN_SRC sh
   which python
 #+END_SRC
 
 #+RESULTS:
-: /usr/bin/python
+
+You can access environment variables using the dollar sign, ~$~, in front of
+the variable name.
+
+#+BEGIN_SRC sh
+  echo $PATH
+#+END_SRC
+
+You can manipulate your path variable with an equals sign, ~=~, to append new
+parts of the path to the new one using a colon, ~:~.
 
 #+BEGIN_SRC sh
   echo $PATH
@@ -218,7 +375,15 @@ limited than the ~rm~ command we just learned about.
 
 Close your terminal. Are changes to your path still there?
 
+For changes to be seen from any script and subshell called from this shell,
+you'll need to *export* your path variable.
+
+#+BEGIN_SRC sh
+  export PATH
+#+END_SRC
+
 * Redirect Input and Output
+
 ** Standard Streams
 
 STDIN, STDOUT, STDERR
