@@ -390,15 +390,23 @@ STDIN, STDOUT, STDERR
 
 ** Pipe
 
+The pipe character, ~|~ (generally found above the Enter key), help redirect
+output from one command to another
+
 #+BEGIN_SRC sh
-ls | grep "Make"
+  ls ../
 #+END_SRC
 
 #+RESULTS:
+| notebooks |
+| notes     |
+| README.md |
+| src       |
 
 More: [[https://en.wikipedia.org/wiki/Pipeline_(Unix)]]
 
 * File Manipulation with Built-In Tools
+
 ** awk
 
 ** sed
@@ -407,6 +415,16 @@ More: [[https://en.wikipedia.org/wiki/Pipeline_(Unix)]]
 
 ** find
 
+* Bash Scripting
+
+** Variables
+
+** Pass In Arguments
+
+** Control Structures
+
+** Status Indicators
+
 * File Transfer and Interacting with the Web and Servers
 
 ** curl and wget
@@ -414,7 +432,9 @@ More: [[https://en.wikipedia.org/wiki/Pipeline_(Unix)]]
 More: https://daniel.haxx.se/docs/curl-vs-wget.html
 
 ** scp and sftp
+
 * Miscellaneously Useful Tools
+
 ** Screen and tmux
 
 ~Screen~ and ~tmux~ are called "terminal multiplexers".
@@ -430,7 +450,13 @@ Here are some benefits to using a terminal multiplexer:
 
 **** Screen
 
+Initially releases in 1987, Screen is a mature and stable terminal
+multiplexer.
+
 **** tmux
+
+Initially created in 2007, tmux is also a terminal multiplexer with very
+similar features compared to Screen.
 
 *** Resources and More
 
@@ -482,7 +508,6 @@ all : article.html
 
 Using the above ~Makefile~, you can use the command ~make all~ in the command
 line to run the rule.
-
 * Summary
 
 | Command/Term | Simple Description               |
@@ -508,7 +533,6 @@ line to run the rule.
 | wget         | Retrieves contents from servers  |
 
 * Exercises
-
 
 * Resources and More
 
