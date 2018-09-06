@@ -454,17 +454,47 @@ you'll need to *export* your path variable.
 
 * Redirect Input and Output
 
+Sometimes when running commands, you want to chain together multiple
+commands. Rather than saving the output, opening and reading it again, and then
+processing the results, you can just *redirect* output of one command into
+another.
+
 ** Standard Streams
 
-STDIN, STDOUT, STDERR
+*Streams* are different types of information or data traveling within the Linux
+shell. 
 
-** Pipe
+There are three standard streams of information:
 
-The pipe character, ~|~ (generally found above the Enter key), help redirect
-output from one command to another
+- STDIN :: standard input e.g. keyboard
+- STDOUT :: standard output e.g. screen
+- STDERR :: standard error
+
+** Redirection of Streams
+
+Now that we have an understanding of the basic streams of data available to us,
+we can redirect these streams however we like using the less than and greater
+than symbols.
+
+#+CAPTION: Summary of different types of redirections
+#+NAME: tab:redirection
+| Write Status | Symbol | Description     |
+|--------------+--------+-----------------|
+| Overwrite    | >      | Standard output |
+| Overwrite    | <      | Standard input  |
+| Overwrite    | 2>     | Standard error  |
+| Append       | >>     | Standard output |
+| Append       | <<     | Standard input  |
+| Append       | 2>>    | Standard error  |
+
+*** Output and Overwrite with >
+
+You can use the ~>~ (greater than symbol) character to take the output of one
+program to output and write to another file.
 
 #+BEGIN_SRC sh
-  ls ../
+  ls ../ > list_of_files.txt
+  head list_of_files.txt
 #+END_SRC
 
 #+RESULTS:
@@ -473,7 +503,99 @@ output from one command to another
 | README.md |
 | src       |
 
-More: [[https://en.wikipedia.org/wiki/Pipeline_(Unix)]]
+*** Output and Append with >>
+
+The single greater than sign will overwrite the files you redirect to. But what
+if you want to just keep on adding to a list?
+
+That's where the double greater than sign ~>>~ comes in.
+
+This double greater than sign will add to the bottom of the file.
+
+#+BEGIN_SRC sh :results drawer
+  # The -e flag tells echo to interpret the backslash
+  echo -e "\nCompare with sorted list" >> list_of_files.txt
+
+  ls -lt ../ >> list_of_files.txt
+  cat list_of_files.txt
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+notebooks
+notes
+README.md
+src
+
+Compare with sorted list
+total 8
+drwxr-xr-x+ 1 leunge Domain Users    0 Sep  5 13:01 notes
+drwxr-xr-x+ 1 leunge Domain Users    0 Aug 23 15:49 notebooks
+drwxr-xr-x+ 1 leunge Domain Users    0 Aug 23 15:37 src
+-rw-r--r--+ 1 leunge Domain Users 2234 Aug 23 10:45 README.md
+:END:
+
+*** Input with <
+
+You can also redirect files *into* commands using the less than symbol, ~<~.
+
+#+BEGIN_SRC sh
+  head < list_of_files.txt
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+notebooks
+notes
+README.md
+src
+
+Compare with sorted list
+total 8
+drwxr-xr-x+ 1 leunge Domain Users    0 Sep  5 13:01 notes
+drwxr-xr-x+ 1 leunge Domain Users    0 Aug 23 15:49 notebooks
+drwxr-xr-x+ 1 leunge Domain Users    0 Aug 23 15:37 src
+:END:
+
+Now although this example is superfluous, I hope the concept still shines
+through.
+
+** Pipe
+
+The pipe character, ~|~ (generally found above the Enter key), help redirect
+output from one command to another
+
+Let's look at what we have so far in our directory.
+
+#+BEGIN_SRC sh :results drawer
+  ls
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+#unix_outline.org#
+list_of_files.txt
+unix_outline.org
+:END:
+
+Now, say I only want to look at only two entries with the ~head~ command.
+
+#+BEGIN_SRC sh :results drawer
+  ls | head -n 2
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+#unix_outline.org#
+list_of_files.txt
+:END:
+
+** Resources and More
+
+- [[https://www.guru99.com/linux-redirection.html][Input Output Redirection in Linux/Unix Examples (Guru99)]]
+- [[https://www.digitalocean.com/community/tutorials/an-introduction-to-linux-i-o-redirection][An Introduction to Linux I/O Redirection (Digital Ocean)]]
+- [[https://robots.thoughtbot.com/input-output-redirection-in-the-shell][Input/Output Redirection in the Shell (thoughtbot)]]
+- [[https://en.wikipedia.org/wiki/Pipeline_(Unix)][Pipeline (Wikipedia)]]
 
 * File Manipulation with Built-In Tools
 
