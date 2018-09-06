@@ -1,7 +1,7 @@
 #+TITLE: Linux/Unix Command and Bash Scripting Overview
 #+AUTHOR: Eric Leung
 #+DATE: 2018-08-11
-#+BABEL: :results output replace :exports results :tangle yes
+#+BABEL: :results value drawer replace :exports results
 
 * Unix and Linux Background
 
