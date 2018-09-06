@@ -599,13 +599,188 @@ list_of_files.txt
 
 * File Manipulation with Built-In Tools
 
+We now have a basic understanding of how to move around our computer using the
+command line, explore files, and manipulate data to go where we want.
+
+Here, let us explore powerful tools to manipulate text files. Many of these
+functions are available in Python and R, but here we can show the exact same
+functionality with time-tested tools.
+
 ** awk
+
+The ~awk~ command line tool is a powerful tool for processing text files,
+especially those organized into rows and columns i.e. tabular data.
+
+*** General syntax
+
+Borrowed from [[https://dev.to/rrampage/awk---a-useful-little-language-2fhf][Raunak Ramakrishnan]], their blog post has broken down how ~awk~
+works in terms of Python pseudocode.
+
+#+BEGIN_SRC python
+initialize()                             # Initializes variables in BEGIN block
+for line in input_lines:                 # Divides input into a list of lines
+    for condition, action in conditions: # Just list of condition-action pairs
+        if condition(line):              # Match line against condition
+            action()                     # Perform action on match 
+#+END_SRC
+
+In other words, ~awk~ is a sequence of *pattern-action* pairs where it checks
+each line if it matches some pattern. If it does, the action will be executed.
+
+#+BEGIN_SRC txt
+  BEGIN {...}
+  CONDITION {action}
+  CONDITION {action}
+  END {...}
+#+END_SRC
+
+*** Built-in variables
+
+There are some built-in variables that can be used to make using ~awk~ more
+powerful. These variables relate to the file itself, such as the number of
+columns/fields in the file, which may be useful in manipulating the file.
+
+| Variable | Description                       | Example                          |
+|----------+-----------------------------------+----------------------------------|
+| FS       | Input separator                   | ~awk 'BEGIN{FS="FS";}'~          |
+| OFS      | Output separator                  | ~awk 'BEGIN{OFS="=";}'~          |
+| RS       | Determines what is a record       | ~awk 'BEGIN{RS="\n\n";}'~        |
+| ORS      | Output record separator           | ~awk 'BEGIN{ORS="=";}'~          |
+| NR       | Number of record                  | ~awk '{print "Number - ", NR;}'~ |
+| NF       | Number of fields/columns          | ~awk '{print NR,"->",NF;}'~      |
+| FILENAME | Name of current file              | ~awk '{print FILENAME}'~         |
+| FNR      | Number of records rel. to current | ~awk '{print FILENAME, FNR;}'~   |
+| $0       | The entire line                   | ~awk '{print $0;}`~              |
+| $n       | The nth field number              | ~awk '{print $1;}'~              |
+
+*** Examples
+
+Now that we have the general syntax, let's try out some ~awk~ commands.
+
+#+BEGIN_SRC sh :results drawer
+  ls -l
+  ls -l | awk '{ print $6 " " $10 }'
+  ls -l | awk '{ print $6 * 2 }'
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+total 113
+-rw-r--r--+ 1 leunge Domain Users 28946 Sep  5 19:04 #unix_outline.org#
+-rw-r--r--+ 1 leunge Domain Users   302 Sep  5 13:01 list_of_files.txt
+-rw-r--r--+ 1 leunge Domain Users 50823 Sep  5 14:35 unix_outline.html
+-rw-r--r--+ 1 leunge Domain Users 24879 Sep  5 14:29 unix_outline.org
+ 
+28946 #unix_outline.org#
+302 list_of_files.txt
+50823 unix_outline.html
+24879 unix_outline.org
+0
+57892
+604
+101646
+49758
+:END:
+
+*** Resources and more
+
+- [[https://dev.to/rrampage/awk---a-useful-little-language-2fhf][Awk - A useful little language]]
+- [[https://www.lifewire.com/write-awk-commands-and-scripts-2200573][How to Write AWK Commands and Scripts]]
+- [[https://www.thegeekstuff.com/2010/01/8-powerful-awk-built-in-variables-fs-ofs-rs-ors-nr-nf-filename-fnr/][8 Powerful Awk Built-in Variables (The Geek Stuff)]]
+- [[http://www.grymoire.com/Unix/Awk.html][Awk (Grymoire)]]
 
 ** sed
 
+The ~sed~ command is another powerful command. While ~awk~ is useful for
+manipulating tabular data, ~sed~ is used to read in text and transform it.
+
+A simple use of ~sed~ is for replacing text.
+
+#+BEGIN_SRC sh
+  echo Sunday | sed 's/day/night/'
+#+END_SRC
+
+#+RESULTS:
+: Sunnight
+
+*** Resources and more
+
+- [[http://www.grymoire.com/Unix/Sed.html][sed (Grymoire)]]
+
 ** cut
 
+The ~cut~ command is useful to divide a file into several parts.
+
+It goes through each line to cut parts of it based on:
+
+- byte position
+- character
+- field
+
+#+BEGIN_SRC sh :results drawer
+  ls -l
+  ls -l | cut -b 1-10
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+total 113
+-rw-r--r--+ 1 leunge Domain Users 29867 Sep  5 19:25 #unix_outline.org#
+-rw-r--r--+ 1 leunge Domain Users   302 Sep  5 13:01 list_of_files.txt
+-rw-r--r--+ 1 leunge Domain Users 50823 Sep  5 14:35 unix_outline.html
+-rw-r--r--+ 1 leunge Domain Users 24879 Sep  5 14:29 unix_outline.org
+total 113
+-rw-r--r--
+-rw-r--r--
+-rw-r--r--
+-rw-r--r--
+:END:
+
 ** find
+
+The ~find~ command will be helpful to search for files.
+
+The general form of this command is
+
+#+BEGIN_SRC txt
+  find (starting directory) (matching criteria and actions)
+#+END_SRC
+
+Here's a table summarizing the types of matching criteria available.
+
+| Criteria   | Description                              |
+|------------+------------------------------------------|
+| -atime n   | File accessed n days ago                 |
+| -mtime n   | File modified n days ago                 |
+| -size n    | File is n blocks big (block = 512 bytes) |
+| -type c    | File type, f=file,d=dir                  |
+| -name nam  | Search filename nam                      |
+| -user usr  | File's owner is usr                      |
+| -group grp | File's group is grp                      |
+| -perm p    | File's access mode is p                  |
+
+Arithmetic modifiers can be used to specify values.
+
+| Modifiers  | Description                          |
+|------------+--------------------------------------|
+| -mtime +7  | Modified more than seven days ago    |
+| -atime -2  | File accessed less than two days ago |
+| -size +100 | File larger than 100 blocks (50 KB)  |
+
+#+BEGIN_SRC sh :results drawer
+  # Look for text files accessed less than three days ago
+  find . -atime -3 -name "*.txt"
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+./list_of_files.txt
+:END:
+
+*** Resources and more
+
+- [[https://www.tecmint.com/35-practical-examples-of-linux-find-command/][35 Practical Examples of Linux Find Command]]
+- [[https://kb.iu.edu/d/admm][Use the Unix find command to search for files]]
 
 * Bash Scripting
 
@@ -624,6 +799,7 @@ list_of_files.txt
 More: https://daniel.haxx.se/docs/curl-vs-wget.html
 
 ** scp and sftp
+
 
 * Miscellaneously Useful Tools
 
@@ -700,6 +876,7 @@ all : article.html
 
 Using the above ~Makefile~, you can use the command ~make all~ in the command
 line to run the rule.
+
 * Summary
 
 | Command/Term | Simple Description               |
@@ -732,4 +909,5 @@ line to run the rule.
 - [[https://github.com/stephenturner/oneliners][Bioinformatics One-Liners by Stephen Turner]]
 - [[http://mywiki.wooledge.org/BashPitfalls][Bash Pitfalls - Common Errors Bash Programmers Make]]
 - [[https://github.com/denysdovhan/bash-handbook][bash-handbook (GitHub)]]
+- [[https://sanctum.geek.nz/arabesque/series/unix-as-ide/][Unix as IDE Series]]
 - [[https://github.com/awesome-lists/awesome-bash][Awesome Bash (GitHub)]]
