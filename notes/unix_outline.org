@@ -48,6 +48,7 @@ You can use ~pwd~ to show you where you are in your computer.
 #+END_SRC
 
 #+RESULTS:
+: /home/leunge/documents/github/lecture-python-bash/notes
 
 *** ls
 
@@ -88,6 +89,76 @@ Here are some key character to know when using ~cd~.
   cd ../
   pwd
 #+END_SRC
+** Echo and File Exploration
+
+Now that we have some files, we can take a look at files using a variety of
+commands.
+
+#+CAPTION: Commands to print lines of files
+#+NAME: fig:echocat
+| Command | Description                               |
+|---------+-------------------------------------------|
+| echo    | Displays lines                            |
+| head    | Pirnts first few lines                    |
+| cat     | Prints entire file and concatenates files |
+
+*** echo
+
+The ~echo~ command displays lines of text.
+
+Some reasons you may want to use ~echo~ are:
+
+- output messages to the screen
+- printing file names
+
+#+BEGIN_SRC sh
+  echo "Hello, World!"
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+Hello, World!
+:END:
+
+*** head
+
+The ~head~ commands will show just the beginning lines of a given file.
+
+By default, this command will show the first 10 lines of a file.
+
+#+BEGIN_SRC sh
+  head ../README.md
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+# Teaching Python's NetworkX and Bash
+
+Lecture  materials for teaching Python's NetworkX package and Bash scripting.
+
+
+**Contents**
+
+- [Requirements](#requirements)
+- [Environment Setup](#environment-setup)
+    - [Anaconda and Conda](#anaconda-and-conda)
+:END:
+
+*** cat
+
+If you want to see more than just the first few lines of a file, you can use
+the ~cat~ command to print out the entire file.
+
+This command can also be used to *concatenate* or join multiple files
+together.
+
+#+BEGIN_SRC sh :results drawer
+  cat ../README.md ../README.md
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+:END:
 
 ** File Manipulations
 
@@ -290,7 +361,6 @@ both group and others, you can run the following command with ~chmod~:
   ls -l
 #+END_SRC
 
-
 **** Update using symbolic representation
 
 You can also use what is called symbolic representation to modify permissions.
@@ -335,7 +405,7 @@ you can run the following:
   ls -l
 #+END_SRC
 
-**** More Examples
+**** Resources and more
 
 - [[https://www.thegeekstuff.com/2010/06/chmod-command-examples/][7 Chmod Command Examples for Beginners (The Geek Stuff)]]
 - [[https://www.thegeekstuff.com/2010/04/unix-file-and-directory-permissions/][Beginners Guide to File and Directory Permissions (The Geek Stuff)]]
