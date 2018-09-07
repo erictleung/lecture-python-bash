@@ -1376,29 +1376,49 @@ Makefile that does a very similar task and then change it to fit your needs.
 
 * Summary
 
-| Command/Term | Simple Description               |
-|--------------+----------------------------------|
-| pwd          | Displays current directory       |
-| ls           | Display files in directory       |
-| cd           | Change current directory         |
-| touch        | Update file or create new file   |
-| cp           | Copy files and directories       |
-| mv           | Move files and directories       |
-| rm           | Delete files and directories     |
-| mkdir        | Create new directory             |
-| rmdir        | Remove empty directory           |
-| STDIN        | Input going into program         |
-| STDOUT       | Output coming out of programs    |
-| STDERR       | Error messages                   |
-| Pipe         | Pass text between commands       |
-| awk          | Process text in tabular form     |
-| sed          | Edit streams of data             |
-| cut          | Divide file by column/delimiters |
-| find         | Search for files                 |
-| curl         | Transfer data                    |
-| wget         | Retrieves contents from servers  |
+| Command/Term | Simple Description                    |
+|--------------+---------------------------------------|
+| pwd          | Displays current directory            |
+| ls           | Display files in directory            |
+| cd           | Change current directory              |
+| echo         | Display lines of text                 |
+| head         | Display first few lines of text       |
+| cat          | Print entire file                     |
+| touch        | Update file or create new file        |
+| cp           | Copy files and directories            |
+| mv           | Move files and directories            |
+| rm           | Delete files and directories          |
+| mkdir        | Create new directory                  |
+| rmdir        | Remove empty directory                |
+| chmod        | Change file/directory permissions     |
+| which        | Show path to command                  |
+| STDIN        | Input going into program              |
+| STDOUT       | Output coming out of programs         |
+| STDERR       | Error messages                        |
+| >            | Write to file                         |
+| >>           | Append to file                        |
+| <            | Input file to command                 |
+| \vert (Pipe)     | Pass text between commands            |
+| awk          | Process text in tabular form          |
+| sed          | Edit streams of data                  |
+| cut          | Divide file by column/delimiters      |
+| find         | Search for files                      |
+| $?           | Check exit status of previous command |
+| curl         | Transfer data                         |
+| wget         | Retrieves contents from servers       |
+| scp          | Secure copy over SSH                  |
+| sftp         | Secure file transfer (interactive)    |
+| screen       | Terminal multiplexer                  |
+| tmux         | Terminal multiplexer                  |
+| make         | Bash scripting automation             |
 
 * Exercises
+
+** Exercise 1
+
+** Exercise 2
+
+** Exercise 3
 
 * Resources and More
 
