@@ -1126,7 +1126,86 @@ For simple file downloads, there isn't much of a difference in use.
 - [[https://unix.stackexchange.com/questions/47434/what-is-the-difference-between-curl-and-wget][What is the difference between curl and wget?]]
 - [[https://www.cyberciti.biz/faq/curl-download-file-example-under-linux-unix/][Linux/Unix: curl Command Download File Example]]
 - [[https://www.cyberciti.biz/tips/linux-wget-your-ultimate-command-line-downloader.html][Linux wget: Your Ultimate Command Line Downloader]]
+
 ** scp and sftp
+
+~scp~ and ~sftp~ are both useful command line tools to move files between
+servers/computers.
+
+For example, you can use this program to move files between your computer and
+State using these two commands.
+
+The *s* in front of each of these commands stands for *secure* because they
+both encrypt the data they transfer.
+
+*** scp
+
+~scp~ stands for *secure copy* because this command copies files from a
+server.
+
+So we can run the following command from my computer to copy this document to
+State.
+
+#+BEGIN_SRC sh
+  # Copy this file over to the root of my user account
+  scp unix_outline.org leunge@state.ohsu.edu:~/
+#+END_SRC
+
+*Note* the colon after the server name. After the colon, you can type the path
+location where you'd like to put the file. In this case, the file will be moved
+to the root of my user account.
+
+You can also move entire directories using the ~-r~ flag.
+
+#+BEGIN_SRC sh
+  # Move this entire lecture directory to account
+  scp -r ../../ leunge@state.ohsu.edu:~/
+#+END_SRC
+
+*** sftp
+
+The ~sftp~ works similarly to ~scp~ to copy files. One key difference is that
+it is *interactive*.
+
+| Command  | Description                        |
+|----------+------------------------------------|
+| cd dir   | Move to directory                  |
+| lcd dir  | Change directory on local computer |
+| ls       | List files on server               |
+| lls      | List files on local computer       |
+| pwd      | Print working directory on server  |
+| lpwd     | Print working directory on local   |
+| get file | Download file from server to local |
+| put file | Upload file from local to server   |
+| exit     | Exit from sftp program             |
+
+To start a secure FTP session, run the following.
+
+#+BEGIN_SRC sh
+  # Start FTP session
+  sftp leunge@state.ohsu.edu
+#+END_SRC
+
+Then you should be greeted with the following.
+
+#+BEGIN_SRC txt
+  sftp>
+#+END_SRC
+
+From here, you can run commands to move files between your computer and the
+server.
+
+#+BEGIN_SRC txt
+  sftp> lls
+  sftp> put unix_outline.org
+  sftp> ls
+  sftp> exit
+#+END_SRC
+
+*** Resources and more
+
+- [[https://www.cyberciti.biz/faq/scp-exclude-files-when-using-command-recursively-on-unix-linux/][How to exclude file when using scp command recursively]]
+- [[https://www.cyberciti.biz/faq/sftp-file-from-server-to-another-in-unix-linux/][Unix / Linux: sftp File From One Server To Another]]
 
 * Miscellaneously Useful Tools
 
