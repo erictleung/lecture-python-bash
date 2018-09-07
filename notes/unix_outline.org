@@ -607,7 +607,7 @@ Here, let us explore powerful tools to manipulate text files. Many of these
 functions are available in Python and R, but here we can show the exact same
 functionality with time-tested tools.
 
-** awk
+** awk - text processing language with strength in tabular data
 
 The ~awk~ command line tool is a powerful tool for processing text files,
 especially those organized into rows and columns i.e. tabular data.
@@ -689,8 +689,10 @@ total 113
 - [[https://www.lifewire.com/write-awk-commands-and-scripts-2200573][How to Write AWK Commands and Scripts]]
 - [[https://www.thegeekstuff.com/2010/01/8-powerful-awk-built-in-variables-fs-ofs-rs-ors-nr-nf-filename-fnr/][8 Powerful Awk Built-in Variables (The Geek Stuff)]]
 - [[http://www.grymoire.com/Unix/Awk.html][Awk (Grymoire)]]
+- [[https://ss64.com/bash/awk.html][awk or gawk (GNU awk)]]
+- [[https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md][Learn by Example awk]]
 
-** sed
+** sed - edit streams of text
 
 The ~sed~ command is another powerful command. While ~awk~ is useful for
 manipulating tabular data, ~sed~ is used to read in text and transform it.
@@ -707,8 +709,9 @@ A simple use of ~sed~ is for replacing text.
 *** Resources and more
 
 - [[http://www.grymoire.com/Unix/Sed.html][sed (Grymoire)]]
+- [[https://ss64.com/bash/sed.html][sed (SS64)]]
 
-** cut
+** cut - divide file into several parts by columns/delimiter
 
 The ~cut~ command is useful to divide a file into several parts.
 
@@ -737,7 +740,7 @@ total 113
 -rw-r--r--
 :END:
 
-** sort
+** sort - put items in order
 
 As the name implies, the ~sort~ command will order a list of items.
 
@@ -745,7 +748,7 @@ As the name implies, the ~sort~ command will order a list of items.
   ls | sort
 #+END_SRC
 
-** find
+** find - search for files
 
 The ~find~ command will be helpful to search for files.
 
@@ -1093,7 +1096,7 @@ When working with a server, you may want to move files between your own
 computer and the server. While there are graphical tools to do this, there are
 command line tools available to you to do this as well.
 
-** curl and wget
+** curl and wget retrieve files from servers
 
 ~curl~ and ~wget~ are both command line tools that can download contents from
 servers and the internet.
@@ -1133,7 +1136,7 @@ For simple file downloads, there isn't much of a difference in use.
 - [[https://www.cyberciti.biz/faq/curl-download-file-example-under-linux-unix/][Linux/Unix: curl Command Download File Example]]
 - [[https://www.cyberciti.biz/tips/linux-wget-your-ultimate-command-line-downloader.html][Linux wget: Your Ultimate Command Line Downloader]]
 
-** scp and sftp
+** scp and sftp for secure transfer of files
 
 ~scp~ and ~sftp~ are both useful command line tools to move files between
 servers/computers.
@@ -1231,7 +1234,7 @@ Here are some benefits to using a terminal multiplexer:
 - Use when network connection unreliable
 - Pick up progress quickly on a server when you login
 
-**** Screen
+*** Screen
 
 Initially releases in 1987, Screen is a mature and stable terminal
 multiplexer.
@@ -1267,7 +1270,7 @@ is a list of commands to use while in screen.
 | Ctrl+a "     | Switch between terminals using list   |
 | Ctrl+a ?     | Display list of all commands          |
 
-**** tmux
+*** tmux
 
 Initially created in 2007, tmux is also a terminal multiplexer with very
 similar features compared to Screen.
@@ -1317,7 +1320,7 @@ The main key to invoke changes in tmux is ~Ctrl+b~.
 - More
   - [[https://leanpub.com/the-tao-of-tmux/read][The Tao of tmux - Leanpub]]
 
-** GNU Make 
+** GNU Make for automation
 
 In programming, we want to no repeat ourselves. So people made GNU ~make~ as an
 automation (build) tool.
@@ -1455,7 +1458,7 @@ The data can be found [[https://archive.ics.uci.edu/ml/machine-learning-database
 
 ** Exercise 3 Search for Codons
 
-Using the random DNA seqence Python script from Exercise 1, generate a random
+Using the random DNA sequence Python script from Exercise 1, generate a random
 sequence of DNA and count the number of times the DNA sequence "TAA" (a stop
 codon).
 
@@ -1464,10 +1467,25 @@ count them each.
 
 * Resources and More
 
+- [[https://github.com/learnbyexample/Linux_command_line][Linux Commands and Shell Scripting - learnbyexample]]: overview of Linux and
+  commonly found commands
+- [[https://github.com/learnbyexample/Command-line-text-processing][Command Line Text Processing - learnbyexample]]: from finding text to search
+  and replace, from sorting to beautifying text and more
+- [[http://tldp.org/LDP/abs/html/][Advanced Bash Scripting Guide]]: an in-depth exploration of the art of shell
+  scripting
+- [[https://github.com/stephenturner/oneliners][Bioinformatics One-Liners by Stephen Turner]]: useful bash one-liners usesful
+  for bioinformatics
+- [[https://github.com/jlevy/the-art-of-command-line][The Art of Command Line]]: guide for both beginners and the experienced, with
+  goals of **breadth** (everything important), **specificity** (give concrete
+  examples of the most common case), and **brevity** (avoid things that aren't
+  essential or digressions you can easily look up elsewhere
+- [[https://github.com/denysdovhan/bash-handbook][bash-handbook (GitHub)]]: document for those who want to learn Bash without
+  diving in too deeply.
+- [[https://github.com/awesome-lists/awesome-bash][Awesome Bash (GitHub)]]: a curated list of delightful Bash scripts and
+  resources
+- [[https://twitter.com/i/moments/1026078161115729920][Julia Evans' (@b0rk) Twitter snippets]]: scroll through her photos for hand
+  drawn descriptions of bash and others
 - [[http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html][Bash Guide for Beginners]] (Beginner)
 - [[http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html][BASH Programming - Introduction HOW-TO]] (Intermediate)
-- [[https://github.com/stephenturner/oneliners][Bioinformatics One-Liners by Stephen Turner]]
 - [[http://mywiki.wooledge.org/BashPitfalls][Bash Pitfalls - Common Errors Bash Programmers Make]]
-- [[https://github.com/denysdovhan/bash-handbook][bash-handbook (GitHub)]]
 - [[https://sanctum.geek.nz/arabesque/series/unix-as-ide/][Unix as IDE Series]]
-- [[https://github.com/awesome-lists/awesome-bash][Awesome Bash (GitHub)]]
