@@ -101,7 +101,7 @@ commands.
 | Command | Description                               |
 |---------+-------------------------------------------|
 | echo    | Displays lines                            |
-| head    | Pirnts first few lines                    |
+| head    | Prints first few lines                    |
 | cat     | Prints entire file and concatenates files |
 
 *** echo
@@ -124,7 +124,7 @@ Hello, World!
 
 *** head
 
-The ~head~ commands will show just the beginning lines of a given file.
+The ~head~ command will show just the beginning lines of a given file.
 
 By default, this command will show the first 10 lines of a file.
 
@@ -218,7 +218,7 @@ Another use for this command is to *rename* things on your computer.
 
 *** rm
 
-The ~rm~ command *removes*/*deletes* files and directories around your
+The ~rm~ command *removes/deletes* files and directories around your
 computer.
 
 This command is very powerful so use with caution. There are lots of jokes with
@@ -368,7 +368,7 @@ You can also use what is called symbolic representation to modify permissions.
 This can be easier to remember and use because you don't have to remember which
 permission equals what number and how to put together the number as well.
 
-All you need to remeber are letters for both the different roles.
+All you need to remember are letters for both the different roles.
 
 | Letter | Role   |
 |--------+--------|
