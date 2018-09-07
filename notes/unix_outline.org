@@ -1323,26 +1323,56 @@ However, this tool can also be used in automating tasks for data analysis and
 describe exactly what you've done.
 
 #+BEGIN_SRC txt
-rule : dependencies
-    commands ...
+  rule : dependencies
+      commands ...
 #+END_SRC
 
+*Note*: Only tabs can be used in this file, otherwise you'll get a syntax
+error.
+
+*** Basic Example
+
+Here is a basic Makefile that will count the words of a file and save the
+results into the file ~word_count.txt~.
+
 #+BEGIN_SRC makefile
-article.html : article.md
-     pandoc -i article.md -o article.html
+  word_count.txt : file_with_words.txt
+       wc file_with_words.txt > word_count.txt
 #+END_SRC
 
-A slightly better and more robust rule.
+*** More Advanced Example
+
+A slightly better and more robust Makefile that will create the files it'll
+operate on.
 
 #+BEGIN_SRC makefile
-all : article.html
+  all : file1_count.txt file2_count.txt file3_count.txt
 
-%.html : %.md
-    pandoc -i $< -o $@
+  create :
+      echo -e "1\n2\n3\n4\n5\n6" > file1.txt
+      echo -e "Hello, world!" > file2.txt
+      echo -e "We're learning bash programming!" > file3.txt
+
+  %_count.txt : %.txt
+      wc $< > $@
+
+  clean :
+      rm file*
 #+END_SRC
 
 Using the above ~Makefile~, you can use the command ~make all~ in the command
 line to run the rule.
+
+There is also another rule, ~clean~, that'll remove all the generated
+files. This is fairly typical in Makefiles to clean up your work.
+
+*** Summary
+
+This Makefile is useful when you are constantly changing the files you're
+working on and need to run things over and over again.
+
+*Note*: Creating Makefiles can be troublesome. So it may be easier to find a
+Makefile that does a very similar task and then change it to fit your needs.
 
 * Summary
 
