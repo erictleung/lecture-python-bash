@@ -594,6 +594,7 @@ list_of_files.txt
 - [[https://www.digitalocean.com/community/tutorials/an-introduction-to-linux-i-o-redirection][An Introduction to Linux I/O Redirection (Digital Ocean)]]
 - [[https://robots.thoughtbot.com/input-output-redirection-in-the-shell][Input/Output Redirection in the Shell (thoughtbot)]]
 - [[https://en.wikipedia.org/wiki/Pipeline_(Unix)][Pipeline (Wikipedia)]]
+- [[http://www.catonmat.net/blog/bash-one-liners-explained-part-three/][Bash One-Liners Explained, Part III: All about redirections]]
 
 * File Manipulation with Built-In Tools
 
