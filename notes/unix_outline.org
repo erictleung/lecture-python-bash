@@ -737,6 +737,14 @@ total 113
 -rw-r--r--
 :END:
 
+** sort
+
+As the name implies, the ~sort~ command will order a list of items.
+
+#+BEGIN_SRC sh
+  ls | sort
+#+END_SRC
+
 ** find
 
 The ~find~ command will be helpful to search for files.
@@ -1402,6 +1410,7 @@ Makefile that does a very similar task and then change it to fit your needs.
 | awk          | Process text in tabular form          |
 | sed          | Edit streams of data                  |
 | cut          | Divide file by column/delimiters      |
+| sort         | Sort text                             |
 | find         | Search for files                      |
 | $?           | Check exit status of previous command |
 | curl         | Transfer data                         |
