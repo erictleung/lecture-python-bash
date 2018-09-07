@@ -155,7 +155,7 @@ This command can also be used to *concatenate* or join multiple files
 together.
 
 #+BEGIN_SRC sh
-  cat ../README.md ../README.md
+  cat ../src/Makefile ../src/Makefile
 #+END_SRC
 
 #+RESULTS:
@@ -617,7 +617,7 @@ especially those organized into rows and columns i.e. tabular data.
 Borrowed from [[https://dev.to/rrampage/awk---a-useful-little-language-2fhf][Raunak Ramakrishnan]], their blog post has broken down how ~awk~
 works in terms of Python pseudocode.
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :eval no
 initialize()                             # Initializes variables in BEGIN block
 for line in input_lines:                 # Divides input into a list of lines
     for condition, action in conditions: # Just list of condition-action pairs
@@ -1027,8 +1027,6 @@ type of loop, however, loops over a list of items until that list is done.
 4
 :END:
 
-
-
 ** Exit Status Indicators for Scripts
 
 Unix and Linux systems have what are called *exit codes* that scripts/programs
@@ -1420,6 +1418,17 @@ Makefile that does a very similar task and then change it to fit your needs.
 | screen       | Terminal multiplexer                  |
 | tmux         | Terminal multiplexer                  |
 | make         | Bash scripting automation             |
+
+#+BEGIN_SRC sh :results output silent :exports code
+  rm -f count_lines.sh \
+    list_of_files.txt \
+    pep* \
+    restricted_file.txt \
+    test_exit_codes.sh \
+    test_file.txt \
+    zen.txt \
+    new_file_1.txt
+#+END_SRC
 
 * Exercises
 
