@@ -783,22 +783,348 @@ Arithmetic modifiers can be used to specify values.
 
 * Bash Scripting
 
-** Variables
+Similar to Python scripting, bash scripting is a quick way to:
+
+- automate repetitive tasks
+- create custom sequence of commands
+- link together software tools written in different languages
+
+** Local Variables
+
+We covered variables very briefly when we talked about the ~$PATH~
+variable. This is a built-in variable, but you can also create variables
+yourself.
+
+#+BEGIN_SRC sh
+  university="Oregon Health & Science University"
+  echo $university
+#+END_SRC
+
+#+RESULTS:
+: Oregon Health & Science University
+
+Mind that there should be *no space* around the equals sign.
+
+And to call the variable, you need the *dollar sign* in front of the variable
+name to use it.
+
+Just a tease of what variables can do, you can save the output of one command
+into a variable and then use it later.
+
+#+BEGIN_SRC sh
+  file_list=$(ls)
+  echo $file_list
+#+END_SRC
+
+#+RESULTS:
+: #unix_outline.org# unix_outline.html unix_outline.org
 
 ** Pass In Arguments
 
+Sometimes, instead of hard-coding (explicitly typing in) file names into your
+scripts, maybe we'd like our script to work with any file we give it.
+
+Let's create a simple script that will count the number of lines a file has and
+create a test file.
+
+#+BEGIN_SRC sh :results drawer
+  # Create a simple bash script to take in arguments
+  echo '#!/usr/bin/env bash
+  filename=$1
+
+  if [ -r $filename ]; then
+    linecount=$(wc -l < $filename)
+    printf "%s has %d lines\n" $filename $linecount
+  fi' > count_lines.sh
+  cat count_lines.sh
+
+  # The -e flag interprets backslash characters to create new lines with \n
+  echo -e "This\nfile\nhas\nseven\nlines\nin\nit" > test_file.txt
+  echo "" # Just create a space between results
+  cat test_file.txt
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+#!/usr/bin/env bash
+filename=$1
+
+if [ -r $filename ]; then
+  linecount=$(wc -l < $filename)
+  printf "%s has %d lines\n" $filename $linecount
+fi
+
+This
+file
+has
+seven
+lines
+in
+it
+:END:
+
+Now we can run the script we just created using the file we want as an
+*argument*.
+
+#+BEGIN_SRC sh :results verbatim
+  bash count_lines.sh test_file.txt
+#+END_SRC
+
+#+RESULTS:
+: test_file.txt has 7 lines
+
 ** Control Structures
 
-** Status Indicators
+Similar to Python, you can write statements in bash to control the flow of
+logic based on conditions or loop through a list of items.
+
+*** if/elif/else blocks
+
+We briefly saw the ~if~ statement being used earlier.
+
+The general syntax using conditional is:
+
+#+BEGIN_SRC txt
+  if [ expression ]; then
+    Code is 'expression' is true
+  fi
+#+END_SRC
+
+Here's a working example using ~if~ statements
+
+#+BEGIN_SRC sh
+  object="food"
+  if [ $object == "car" ]; then
+    echo "This is a car"
+  elif [ $object == "food" ]; then
+    echo "This is food"
+  else
+    echo "I don't know what this is"
+  fi
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+This is food
+:END:
+
+**** Resources and more
+
+- [[http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-6.html][6. Conditionals]]
+
+*** Various Conditions
+
+Below are tables summarizing the various kinds of conditionals in bash.
+
+**** Files and Directories
+
+| Condition       | Description                      |
+|-----------------+----------------------------------|
+| [ -e file ]     | Check file exists                |
+| [ -d directory] | Check directory exists           |
+| [ -r file ]     | Check file exists and readable   |
+| [ -w file ]     | Check file exists and writable   |
+| [ -x file ]     | Check file exists and executable |
+
+**** Compare Strings
+
+| Condition              | Description                          |
+|------------------------+--------------------------------------|
+| [ -z STRING ]          | True if length of STRING is zero     |
+| [ -n STRING ]          | True if length of STRING is non-zero |
+| [ STRING1 == STRING2 ] | True if strings are equal            |
+| [ STRING1 != STRING2 ] | True if strings are not equal        |
+| [ STRING1 < STRING2 ]  | True if STRING1 sorts before STRING2 |
+| [ STRING2 > STRING2 ]  | True if STRING1 sorts after STRING2  |
+
+**** Numeric Comparisons
+
+| Condition          | Description                        |
+|--------------------+------------------------------------|
+| [ NUM1 -eq NUM2 ]  | Two numbers are equal              |
+| [ NUM1 -ne NUM2 ]  | Two numbers not equal              |
+| [ NUM1 -gt NUM2 ]  | NUM1 greater than NUM2             |
+| [ NUM1 -ge NUM2 ]  | NUM1 greater than or equal to NUM2 |
+| [ NUM1 -lt NUM2 ]  | NUM1 less than NUM2                |
+| [ NUM1 -le NUM2 ]  | NUM1 less than or equal to NUM2    |
+| (( NUM1 == NUM2 )) | Two numbers are equal              |
+
+*Note*: Double parentheses are specifically for arithmetic expressions. In
+other words ~[ NUM1 > NUM2 ]~ would fail, but ~(( NUM1 > NUM2 ))~ would work.
+
+**** Resources and more
+
+- [[http://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_01.html][Introduction to if]]
+- [[https://serverfault.com/questions/52034/what-is-the-difference-between-double-and-single-square-brackets-in-bash][What is the difference between double and single square brackets in bash?]]
+
+*** while loops
+
+The ~while~ loop keeps on running a set of commands *while* some condition is
+still met.
+
+#+BEGIN_SRC sh
+  COUNTER=0
+  while [ $COUNTER -lt 10 ]; do
+    echo The counter is $COUNTER
+
+    # let allows arithmetic expressions to be evaluated
+    let COUNTER+=1
+  done
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+The counter is 0
+The counter is 1
+The counter is 2
+The counter is 3
+The counter is 4
+The counter is 5
+The counter is 6
+The counter is 7
+The counter is 8
+The counter is 9
+:END:
+
+*** for loops
+
+Similar to ~while~ loops, ~for~ loops will iterate over a set of commands. This
+type of loop, however, loops over a list of items until that list is done.
+
+#+BEGIN_SRC sh
+  # Simple for loop example
+  for i in 1 2 3 4; do
+    echo $i
+  done
+
+  # Another way of the above
+  echo
+  for i in $(seq 1 4); do  # seq prints sequence of numbers
+    echo $i
+  done
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+1
+2
+3
+4
+
+1
+2
+3
+4
+:END:
+
+
+
+** Exit Status Indicators for Scripts
+
+Unix and Linux systems have what are called *exit codes* that scripts/programs
+can return after it is done running.
+
+These codes indicate whether or not the script passed successfully (~0~),
+failed in some way (~1~), or misuse of shell commands (~2~). There are a
+variety of other codes for other situations.
+
+Because scripts are typically run in the context of other scripts, it can be
+important to know if any one of the inner scripts fail in someway so that you
+can fix them.
+
+To access the exit code of the previous script, you can use the ~$?~ variable.
+
+#+BEGIN_SRC sh
+  ls %  # <-- This will fail
+  echo $?
+
+  bashscript  # <-- Will also fail because non-existant
+  echo $?
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+2
+127
+:END:
+
+Here is how you could use these within your own bash scripts.
+
+#+BEGIN_SRC sh
+  echo "#!/usr/bin/env bash
+
+  head -n 1 ../README.md
+
+  if [[ $? -eq 0 ]]; then
+    echo 'Successfully read beginning of file'; exit 0
+  else
+    echo 'Failed to read beginning of file'; exit 1
+  fi" > test_exit_codes.sh
+
+  bash test_exit_codes.sh
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+# Teaching Python's NetworkX and Bash
+Successfully read beginning of file
+:END:
+
+*** Resources and more
+
+- [[http://bencane.com/2014/09/02/understanding-exit-codes-and-how-to-use-them-in-bash-scripts/][Understanding Exit Codes and how to use them in bash scripts]]
+- [[http://www.tldp.org/LDP/abs/html/exitcodes.html][Appendix E. Exit Codes with Special meanings]]
+- [[https://bash.cyberciti.biz/guide/Exit_command][Exit command]]
 
 * File Transfer and Interacting with the Web and Servers
 
+When data analyses require compute power not available to your local computer,
+a server dedicated to crunching numbers and analyses may be help.
+
+When working with a server, you may want to move files between your own
+computer and the server. While there are graphical tools to do this, there are
+command line tools available to you to do this as well.
+
 ** curl and wget
 
-More: https://daniel.haxx.se/docs/curl-vs-wget.html
+~curl~ and ~wget~ are both command line tools that can download contents from
+servers and the internet.
 
+For simple file downloads, there isn't much of a difference in use.
+
+*** curl
+
+*Note*: the flags below are the letter O (as in ostrich), not the number zero (0).
+
+#+BEGIN_SRC sh
+  # Download Python's PEP 20 file
+  curl -O https://raw.githubusercontent.com/python/peps/master/pep-0020.txt
+
+  # Do the same thing, but name the downloaded file differently
+  curl -o zen.txt https://raw.githubusercontent.com/python/peps/master/pep-0020.txt
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+:END:
+
+*** wget
+
+#+BEGIN_SRC sh
+  # wget doesn't require any flags if you just want to download the file
+  wget https://raw.githubusercontent.com/python/peps/master/pep-0020.txt
+
+  # You can similarly name the downloaded file differently using the letter O
+  wget -O https://raw.githubusercontent.com/python/peps/master/pep-0020.txt
+#+END_SRC
+
+*** Resources and more
+
+- [[https://daniel.haxx.se/docs/curl-vs-wget.html][curl vs wget]]
+- [[https://unix.stackexchange.com/questions/47434/what-is-the-difference-between-curl-and-wget][What is the difference between curl and wget?]]
+- [[https://www.cyberciti.biz/faq/curl-download-file-example-under-linux-unix/][Linux/Unix: curl Command Download File Example]]
+- [[https://www.cyberciti.biz/tips/linux-wget-your-ultimate-command-line-downloader.html][Linux wget: Your Ultimate Command Line Downloader]]
 ** scp and sftp
-
 
 * Miscellaneously Useful Tools
 
