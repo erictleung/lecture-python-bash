@@ -164,7 +164,7 @@ together.
 
 ** File Manipulations
 
-Once you're able to move aroudn you computer, let's move around files and
+Once you're able to move around you computer, let's move around files and
 perform very simple changes to your files.
 
 | Command | Description                  | Plain Words                        |
