@@ -2,7 +2,7 @@
 #+AUTHOR: Eric Leung
 #+DATE: 2018-08-11
 #+STARTUP: entitiespretty
-#+PROPERTY: header-args :results verbatim drawer replace :exports results :tangle yes
+#+PROPERTY: header-args :results verbatim drawer replace :exports both :tangle yes
 
 * Unix and Linux Background
 
