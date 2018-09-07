@@ -1180,7 +1180,7 @@ with lots of dependencies. You will see this a lot with C/C++ programs.
 However, this tool can also be used in automating tasks for data analysis and
 describe exactly what you've done.
 
-#+BEGIN_SRC text
+#+BEGIN_SRC txt
 rule : dependencies
     commands ...
 #+END_SRC
@@ -1230,7 +1230,8 @@ line to run the rule.
 
 * Resources and More
 
-- [[http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html][Bash Guide for Beginners]]
+- [[http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html][Bash Guide for Beginners]] (Beginner)
+- [[http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html][BASH Programming - Introduction HOW-TO]] (Intermediate)
 - [[https://github.com/stephenturner/oneliners][Bioinformatics One-Liners by Stephen Turner]]
 - [[http://mywiki.wooledge.org/BashPitfalls][Bash Pitfalls - Common Errors Bash Programmers Make]]
 - [[https://github.com/denysdovhan/bash-handbook][bash-handbook (GitHub)]]
