@@ -1,6 +1,7 @@
 #+TITLE: Linux/Unix Command and Bash Scripting Overview
 #+AUTHOR: Eric Leung
 #+DATE: 2018-08-11
+#+STARTUP: entitiespretty
 #+PROPERTY: header-args :results verbatim drawer replace :exports results :tangle yes
 
 * Unix and Linux Background
