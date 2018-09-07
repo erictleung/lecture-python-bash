@@ -1,7 +1,7 @@
 #+TITLE: Linux/Unix Command and Bash Scripting Overview
 #+AUTHOR: Eric Leung
 #+DATE: 2018-08-11
-#+PROPERTY: header-args :results value drawer replace :exports results :tangle yes
+#+PROPERTY: header-args :results verbatim drawer replace :exports results :tangle yes
 
 * Unix and Linux Background
 
@@ -89,6 +89,7 @@ Here are some key character to know when using ~cd~.
   cd ../
   pwd
 #+END_SRC
+
 ** Echo and File Exploration
 
 Now that we have some files, we can take a look at files using a variety of
@@ -152,7 +153,7 @@ the ~cat~ command to print out the entire file.
 This command can also be used to *concatenate* or join multiple files
 together.
 
-#+BEGIN_SRC sh :results drawer
+#+BEGIN_SRC sh
   cat ../README.md ../README.md
 #+END_SRC
 
@@ -510,7 +511,7 @@ That's where the double greater than sign ~>>~ comes in.
 
 This double greater than sign will add to the bottom of the file.
 
-#+BEGIN_SRC sh :results drawer
+#+BEGIN_SRC sh
   # The -e flag tells echo to interpret the backslash
   echo -e "\nCompare with sorted list" >> list_of_files.txt
 
@@ -565,7 +566,7 @@ output from one command to another
 
 Let's look at what we have so far in our directory.
 
-#+BEGIN_SRC sh :results drawer
+#+BEGIN_SRC sh
   ls
 #+END_SRC
 
@@ -578,7 +579,7 @@ unix_outline.org
 
 Now, say I only want to look at only two entries with the ~head~ command.
 
-#+BEGIN_SRC sh :results drawer
+#+BEGIN_SRC sh
   ls | head -n 2
 #+END_SRC
 
@@ -656,7 +657,7 @@ columns/fields in the file, which may be useful in manipulating the file.
 
 Now that we have the general syntax, let's try out some ~awk~ commands.
 
-#+BEGIN_SRC sh :results drawer
+#+BEGIN_SRC sh
   ls -l
   ls -l | awk '{ print $6 " " $10 }'
   ls -l | awk '{ print $6 * 2 }'
@@ -716,7 +717,7 @@ It goes through each line to cut parts of it based on:
 - character
 - field
 
-#+BEGIN_SRC sh :results drawer
+#+BEGIN_SRC sh
   ls -l
   ls -l | cut -b 1-10
 #+END_SRC
@@ -766,7 +767,7 @@ Arithmetic modifiers can be used to specify values.
 | -atime -2  | File accessed less than two days ago |
 | -size +100 | File larger than 100 blocks (50 KB)  |
 
-#+BEGIN_SRC sh :results drawer
+#+BEGIN_SRC sh
   # Look for text files accessed less than three days ago
   find . -atime -3 -name "*.txt"
 #+END_SRC
@@ -827,7 +828,7 @@ scripts, maybe we'd like our script to work with any file we give it.
 Let's create a simple script that will count the number of lines a file has and
 create a test file.
 
-#+BEGIN_SRC sh :results drawer
+#+BEGIN_SRC sh
   # Create a simple bash script to take in arguments
   echo '#!/usr/bin/env bash
   filename=$1
@@ -866,7 +867,7 @@ it
 Now we can run the script we just created using the file we want as an
 *argument*.
 
-#+BEGIN_SRC sh :results verbatim
+#+BEGIN_SRC sh
   bash count_lines.sh test_file.txt
 #+END_SRC
 
