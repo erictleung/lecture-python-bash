@@ -1209,6 +1209,9 @@ server.
 
 * Miscellaneously Useful Tools
 
+Below are a handful of useful tools that may be useful in the future to work
+more efficiently on the command line.
+
 ** Screen and tmux
 
 ~Screen~ and ~tmux~ are called "terminal multiplexers".
@@ -1227,10 +1230,67 @@ Here are some benefits to using a terminal multiplexer:
 Initially releases in 1987, Screen is a mature and stable terminal
 multiplexer.
 
+#+BEGIN_SRC sh
+  # Start and open screen session
+  screen
+
+  # "Re-attach" to running session
+  screen -r
+
+  # Look at running sessions
+  screen -ls
+#+END_SRC
+
+The main key to invoke changes or to control Screen is ~Ctrl+a~. The following
+is a list of commands to use while in screen.
+
+| Command      | Description                           |
+|--------------+---------------------------------------|
+| Ctrl+a c     | Create new Screen window              |
+| Ctrl+a 0-9   | Switch to window number               |
+| Ctrl+a x     | Locks terminal window                 |
+| Ctrl+a n     | Switch to next window                 |
+| Ctrl+a space | Switch to next window                 |
+| Ctrl+a k     | Close current window                  |
+| Ctrl+a A     | Choose title for window               |
+| Ctrl+a d     | Detach from Screen and keep session   |
+| Ctrl+a \vert     | Split window into two vertical planes |
+| Ctrl+a S     | Split window horizontally             |
+| Ctrl+a Q     | Unsplit windows                       |
+| Ctrl+a tab   | Switch from one to another            |
+| Ctrl+a "     | Switch between terminals using list   |
+| Ctrl+a ?     | Display list of all commands          |
+
 **** tmux
 
 Initially created in 2007, tmux is also a terminal multiplexer with very
 similar features compared to Screen.
+
+#+BEGIN_SRC sh
+  # Start and open tmux session
+  tmux
+
+  # "Re-attach" to running session
+  tmux attach
+
+  # List running sessions
+  tmux ls
+#+END_SRC
+
+The main key to invoke changes in tmux is ~Ctrl+b~.
+
+| Command Keys | Command Line Text         | Description                          |
+|--------------+---------------------------+--------------------------------------|
+| Ctrl+b c     | tmux new-window           | Create new window                    |
+| Ctrl+b 0-9   | tmux select-window -t 0-9 | Move to window number                |
+| Ctrl+b n     | tmux next-window          | Move to next window                  |
+| Ctrl+b &     | tmux kill-window          | Close current window                 |
+| Ctrl+b ,     | tmux rename-window        | Rename title for window              |
+| Ctrl+b d     | tmux detach               | Detach from current session          |
+| Ctrl+b "     | tmux split-window         | Split window into two vertical panes |
+| Ctrl+b %     | tmux split-window -h      | Split window horizontally            |
+| Ctrl+b o     | tmux swap-pane            | Switch from one pane to another      |
+| Ctrl+b x     | tmux kill-pane            | Close pane/split created             |
 
 *** Resources and More
 
@@ -1245,6 +1305,7 @@ similar features compared to Screen.
   - [[https://robots.thoughtbot.com/a-tmux-crash-course][A tmux Crash Course - thoughtbot]]
   - [[https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/][A Quick and Easy Guide to tmux - Ham Vocke]]
   - [[https://danielmiessler.com/study/tmux/][A tmux Primer - Daniel Miessler]]
+  - [[https://gist.github.com/MohamedAlaa/2961058][tmux shortcuts & cheatsheet]]
 - Comparing terminal multiplexers
   - [[https://superuser.com/a/236160][tmux vs screen - supepruser]]
 - More
