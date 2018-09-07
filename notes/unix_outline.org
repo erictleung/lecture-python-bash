@@ -1,7 +1,7 @@
 #+TITLE: Linux/Unix Command and Bash Scripting Overview
 #+AUTHOR: Eric Leung
 #+DATE: 2018-08-11
-#+BABEL: :results value drawer replace :exports results
+#+PROPERTY: header-args :results value drawer replace :exports results :tangle yes
 
 * Unix and Linux Background
 
@@ -280,7 +280,6 @@ There are three permission types:
 - execute (x) :: user's capability to execute a file or view the contents of a
                  directory
 
-
 *** Permission Groups
 
 There are three permission groups:
@@ -289,7 +288,6 @@ There are three permission groups:
 - group (g) :: group of users who have access to file/directory
 - other users (o) :: users not in file's group
 - all users (a) :: what is accessible to any user, independent of group
-
 
 *** chmod
 
