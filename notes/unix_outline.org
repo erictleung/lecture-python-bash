@@ -1414,11 +1414,35 @@ Makefile that does a very similar task and then change it to fit your needs.
 
 * Exercises
 
-** Exercise 1
+** Exercise 1 Basic Pipelines
 
-** Exercise 2
+Create two simple Python programs:
 
-** Exercise 3
+1. Generate a random DNA sequence to ~STDOUT~
+2. Process sequence data from ~STDIN~ and calculate sequence length to ~STDOUT~
+
+Construct a bash pipeline script that calls the two Python program and save the
+final output to a file.
+
+*Hint*: Use the Python functions ~sys.stdout.write()~ and ~sys.stdin.read()~.
+
+** Exercise 2 Download Data and Chop It Up
+
+Create a bash script to download the processed Long Beach V.A. data
+~processed.va.data~ from the [[https://archive.ics.uci.edu/ml/datasets/Heart+Disease][Heart Disease Data Set]] and filter out for just
+subjects with Class 0 (last column). Save this subset of the data to a separate
+file.
+
+The data can be found [[https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/][here]].
+
+** Exercise 3 Search for Codons
+
+Using the random DNA seqence Python script from Exercise 1, generate a random
+sequence of DNA and count the number of times the DNA sequence "TAA" (a stop
+codon).
+
+*Bonus*: Simultaneously find all three stop codons: "TAA", "TAG", "TGA" and
+count them each.
 
 * Resources and More
 
