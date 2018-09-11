@@ -1,0 +1,38 @@
+#+TITLE: Graph Data Structures and Network Basics
+#+AUTHOR: Eric Leung
+#+DATE: 2018-09-10
+#+STARTUP: entitiespretty
+
+* Graph Basics and NetworkX
+
+* Working with Nodes and Objects
+
+* Working with Edges and Connections
+
+* Drawing Graphs in Different Ways
+
+* Analyzing Graph Metrics
+
+** Degree of Nodes
+
+** Centrality as a Way for Node Importance
+
+* Basic Graph Algorithms
+
+** Graph Traversal/Search
+
+** Community Detection
+
+* Summary
+
+- Graphs are collections of nodes/objects and edges/connections
+- NetworkX gives package to manipulate graph objects
+- There are multipleways to draw/plot the same graph
+- Properties of the graph allow you to analyze and make inferences on network
+- Algorithms on graphs explore more sophisticated properties of graphs
+
+* Resources
+
+- [[https://networkx.github.io/][NetworkX]]
+- [[http://igraph.org/][igraph]]
+- [[http://networksciencebook.com/][Network Science by Albert-László Barabási]]
