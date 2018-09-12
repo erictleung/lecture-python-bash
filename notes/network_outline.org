@@ -5,11 +5,98 @@
 
 * Graph Basics and NetworkX
 
+** Introduction
+
+- Networks and connections found everywhere
+  - Transportation with roads and rail tracks
+  - Airplane networks
+  - Social networks
+  - Internet
+  - Biological networks e.g. food web or molecular networks
+- Mathematics calls these *graphs*
+- Graphs are collection of two things:
+  - objects or nodes or vertices
+  - edges or connections
+
+** NetworkX
+
+- NetworkX is Python package to:
+  - Create networks,
+  - Manipulate networks, and
+  - Study networks
+
+#+BEGIN_SRC python
+import networkx as nx
+import matplotlib.pyplot as plt
+#+END_SRC
+
+** Network Basics and Motivation
+
+- Nodes and edges can have multiple attributes
+  - Think of social network
+  - Individuals can be described in multiple ways
+  - Relationships between the individuals can vary
+
+- There are different graph types
+  - Undirected graphs, or simply a graph
+  - Directed graphs, or digraphs
+
+| Type             | Alternate Name | Description                  | NetworkX Call      |
+|------------------+----------------+------------------------------+--------------------|
+| Undirected graph | Graph          | Graphs with undirected edges | ~G = nx.Graph()~   |
+| Directed graph   | Digraph        | Graphs with directed edges   | ~G = nx.DiGraph()~ |
+
+- Studying networks is powerful
+  - Reveal properties of a population or system that otherwise is hidden
+  - Understanding patterns that are a result of the kinds of connections
+  - Understand strength or robustness of a system
+
+** Objectives
+
+- Ability to describe a parts to make a graph
+- Describe what are attributes for nodes and edges
+- Describe basic metrics to describe graph
+- Understanding how to use Matplotlib to visualize and plot results
+- Describe basic analysis to be done on networks
+
 * Working with Nodes and Objects
+
+| Command                     | Description                                   |
+|-----------------------------+-----------------------------------------------|
+| ~nodes(G)~                  | Return iterator over the graph nodes          |
+| ~number_of_nodes(G)~        | Return number of nodes in graph               |
+| ~all_neighbors(G, node)~    | Return all neighbors of node in graph         |
+| ~non_neighbors(G, node)~    | Return non-neighbors of node in graph         |
+| ~common_neighbors(G, u, v)~ | Return common neighbors of two nodes in graph |
+
+#+BEGIN_SRC python
+# Create (empty) graph with no nodes and no edges
+G = nx.Graph()
+#+END_SRC
 
 * Working with Edges and Connections
 
+| Command              | Description                        |
+|----------------------+------------------------------------|
+| ~edges(G)~           | Return edge view of edges          |
+| ~number_of_edges(G)~ | Return number of edges in graph    |
+| ~non_edges(G)~       | Return non-existent edges in graph |
+
+* Node and Edge Attributes
+
+| Type | Command                          | Description                                        |
+|------+----------------------------------+----------------------------------------------------|
+| Node | ~set_node_attributes(G, values)~ | Set node attributes from given value or dictionary |
+| Node | ~get_node_attributes(G, name)~   | Get node attributes from graph                     |
+| Edge | ~set_edge_attributes(G, values)~ | Set edge attributes from given value or dictionary |
+| Edge | ~get_edge_attributes(G, name)~   | Get edge attributes from graph                     |
+
 * Drawing Graphs in Different Ways
+
+| Command   | Description                |
+|-----------+----------------------------|
+| ~draw(G)~ | Draw graph with Matplotlib |
+|           |                            |
 
 * Analyzing Graph Metrics
 
@@ -33,6 +120,10 @@
 
 * Resources
 
-- [[https://networkx.github.io/][NetworkX]]
-- [[http://igraph.org/][igraph]]
-- [[http://networksciencebook.com/][Network Science by Albert-László Barabási]]
+- Tools
+  - [[https://networkx.github.io/][NetworkX]]
+  - [[http://igraph.org/][igraph]]
+- Network science
+  - [[http://networksciencebook.com/][Network Science by Albert-László Barabási]]
+  - [[https://mathigon.org/course/graphs-and-networks/introduction][Graphs and Networks - Mathigon]]
+  - [[https://plus.maths.org/content/graphs-and-networks][Graphs and Networks - Plus Magazine]]
