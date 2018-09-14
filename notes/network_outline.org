@@ -51,9 +51,18 @@ import matplotlib.pyplot as plt
   - Understanding patterns that are a result of the kinds of connections
   - Understand strength or robustness of a system
 
+** Basic Interactions with Networks
+
+There are four basic tasks for interacting with networks
+
+- Add/remove both nodes and edges
+- Add/remove node and edge attributes
+- Plot and visualize the networks
+- Analyze properties of network and make inferences
+
 ** Objectives
 
-- Ability to describe a parts to make a graph
+- Ability to describe parts to make a graph
 - Describe what are attributes for nodes and edges
 - Describe basic metrics to describe graph
 - Understanding how to use Matplotlib to visualize and plot results
@@ -61,67 +70,304 @@ import matplotlib.pyplot as plt
 
 * Working with Nodes and Objects
 
-| Command                     | Description                                   |
-|-----------------------------+-----------------------------------------------|
-| ~nodes(G)~                  | Return iterator over the graph nodes          |
-| ~number_of_nodes(G)~        | Return number of nodes in graph               |
-| ~all_neighbors(G, node)~    | Return all neighbors of node in graph         |
-| ~non_neighbors(G, node)~    | Return non-neighbors of node in graph         |
-| ~common_neighbors(G, u, v)~ | Return common neighbors of two nodes in graph |
+| Method Command                 | Description                                   |
+|--------------------------------+-----------------------------------------------|
+| ~nx.nodes(G)~                  | Return iterator over the graph nodes          |
+| ~nx.number_of_nodes(G)~        | Return number of nodes in graph               |
+| ~nx.all_neighbors(G, node)~    | Return all neighbors of node in graph         |
+| ~nx.non_neighbors(G, node)~    | Return non-neighbors of node in graph         |
+| ~nx.common_neighbors(G, u, v)~ | Return common neighbors of two nodes in graph |
 
 #+BEGIN_SRC python
 # Create (empty) graph with no nodes and no edges
 G = nx.Graph()
 #+END_SRC
 
-* Working with Edges and Connections
+* Creating Networks From Scratch and Manipulation
 
-| Command              | Description                        |
-|----------------------+------------------------------------|
-| ~edges(G)~           | Return edge view of edges          |
-| ~number_of_edges(G)~ | Return number of edges in graph    |
-| ~non_edges(G)~       | Return non-existent edges in graph |
+** Working with Edges and Connections
 
-* Node and Edge Attributes
+| Method Command          | Description                        |
+|-------------------------+------------------------------------|
+| ~nx.edges(G)~           | Return edge view of edges          |
+| ~nx.number_of_edges(G)~ | Return number of edges in graph    |
+| ~nx.non_edges(G)~       | Return non-existent edges in graph |
 
-| Type | Command                          | Description                                        |
-|------+----------------------------------+----------------------------------------------------|
-| Node | ~set_node_attributes(G, values)~ | Set node attributes from given value or dictionary |
-| Node | ~get_node_attributes(G, name)~   | Get node attributes from graph                     |
-| Edge | ~set_edge_attributes(G, values)~ | Set edge attributes from given value or dictionary |
-| Edge | ~get_edge_attributes(G, name)~   | Get edge attributes from graph                     |
+** Node and Edge Attributes
 
-* Drawing Graphs in Different Ways
+| Type | Method Command                      | Description                                        |
+|------+-------------------------------------+----------------------------------------------------|
+| Node | ~nx.set_node_attributes(G, values)~ | Set node attributes from given value or dictionary |
+| Node | ~nx.get_node_attributes(G, name)~   | Get node attributes from graph                     |
+| Edge | ~nx.set_edge_attributes(G, values)~ | Set edge attributes from given value or dictionary |
+| Edge | ~nx.get_edge_attributes(G, name)~   | Get edge attributes from graph                     |
 
-| Command   | Description                |
-|-----------+----------------------------|
-| ~draw(G)~ | Draw graph with Matplotlib |
-|           |                            |
+* Analyzing Existing Networks
 
-* Analyzing Graph Metrics
+#+BEGIN_SRC python
+  # Use example social network of karate club
+  KG = nx.karate_club_graph()
+  nx.draw(KG)
+#+END_SRC
 
-** Degree of Nodes
+** Drawing Graphs in Different Ways
 
-** Centrality as a Way for Node Importance
+There are lots of flexibility in drawing networks. You can find more
+[[https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.drawing.nx_pylab.draw_networkx.html#networkx.drawing.nx_pylab.draw_networkx][here in the ~draw_networkx()~ reference documentation]].
 
-* Basic Graph Algorithms
+*** Drawing Algorithms
 
-** Graph Traversal/Search
+While it is great to create and have a network in a data structure, it is also
+important and interesting to explore these networks visually by plotting them
+in various way.
 
-** Community Detection
+| Method Command        | Description                                                            |
+|-----------------------+------------------------------------------------------------------------|
+| ~nx.draw(G)~          | Draw graph with Matplotlib                                             |
+| ~nx.draw_random(G)~   | Draw graph with random layout                                          |
+| ~nx.draw_circular(G)~ | Draw graph with circular layout                                        |
+| ~nx.draw_spectral(G)~ | Draw graph with spectral layout, using eigenvectors of graph Laplacian |
+| ~nx.draw_spring(G)~   | Draw graph with spring layout                                          |
+| ~nx.draw_shell(G)~    | Draw graph with shell layout                                           |
+
+#+BEGIN_SRC python
+  # Experiment with various drawing algorithms
+  nx.draw(KG)
+#+END_SRC
+
+You can also use these various drawing algorithms within the ~nx.draw()~
+method.
+
+#+BEGIN_SRC python
+  # Use the *_layout() functions within the draw() method
+  nx.draw(KG, pos=spring_layout(KG))
+#+END_SRC
+
+*** Drawing Nodes
+
+There are a few paramters for the ~nx.draw()~ method that can manipulate node
+properties.
+
+| Paramter       | Description                                           |
+|----------------+-------------------------------------------------------|
+| ~with_labbels~ | Set to ~True~ to draw labels on the nodes             |
+| ~node_size~    | Size of nodes with scalar or array                    |
+| ~node_color~   | Node color with string or array of floats             |
+| ~node_shape~   | Shape of node from ~matplotlib.scatter~ markers       |
+| ~pos~          | Dictionary with nodes as keys and positions as values |
+| ~nodelist~     | Draw only specified nodes                             |
+
+#+BEGIN_SRC python
+  # Experiment with various node properties
+  nx.draw(KG, with_labels=True, node_shape="o")
+#+END_SRC
+
+*** Drawing Edges
+
+Here are some parameters specific for modifying how edges are displayed.
+
+| Paramter     | Description                                               |
+|--------------+-----------------------------------------------------------|
+| ~arrows~     | For directed graphs, if ~True~ draw arrowheads            |
+| ~arrowstyle~ | For directed graphs, choose style of arrow                |
+| ~arrowsize~  | For directed graphs, choose size of arrow                 |
+| ~edgelist~   | Draw only specified edges                                 |
+| ~width~      | Line width of edges                                       |
+| ~edge_color~ | Edge color with string or array with same number as edges |
+| ~edge_cmap~  | Colormap for mapping intensities of edges                 |
+| ~style~      | Edge line style                                           |
+
+#+BEGIN_SRC python
+  # Experiment with various edge properties
+  nx.draw(KG, style="dashdot")
+#+END_SRC
+
+*** Saving Figures
+
+Because these figures so far are using Matplotlib, we can make use of that
+package's method to save figures.
+
+#+BEGIN_SRC python
+  # Setup figure size
+  plt.figure(figsize=(20,10))
+
+  # Create plot
+  nx.draw_shell(KG, node_color="blue")
+
+  # Save plot out as image
+  plt.savefig("karate_graph.png", format="PNG")
+#+END_SRC
+
+*** More
+
+- [[https://networkx.github.io/documentation/networkx-1.9.1/gallery.html][NetworkX Gallery Examples]]
+- [[https://networkx.github.io/documentation/networkx-2.1/reference/generated/networkx.drawing.nx_pylab.draw_networkx.html#networkx.drawing.nx_pylab.draw_networkx][Network drawing attributes and drawing features available]]
+
+** Analyzing Graph Metrics
+
+Now that we can visualize a graph, and add and remove from a graph, let's learn
+more about properties of the network as a whole.
+
+*** Basic Descriptions of Graphs
+
+Quick and basic metrics of a graph are the number of edges and nodes.
+
+#+BEGIN_SRC python
+  KG.number_of_nodes()
+  KG.number_of_edges()
+#+END_SRC
+
+*** Degree of Nodes
+
+Remember, that there are two basic kinds of graphs: directed and undirected. In
+the directed graph, there are two different kinds of edges: in and out.
+
+#+BEGIN_SRC python
+  # Find in-degree edges
+  DG.in_degree()
+
+  # Find out-degree edges
+  DG.out_degree()
+#+END_SRC
+
+After knowing the number of edges/neighbors, you can also probe this further to
+find what/who specifically are around particular nodes.
+
+#+BEGIN_SRC python
+  # Look at node neighbors
+  DG.neighbors("Bob")
+
+  # Or through a dictionary accessor
+  DG["Bob"]
+#+END_SRC
+
+*** Centrality as a Way for Node Importance
+
+Here, we're going to try and identify the more important node or individual
+from the network based on their own connections and others.
+
+#+BEGIN_SRC python
+  # Calculate degree centrality
+  nx.degree_centrality(DG)
+#+END_SRC
+
+There are few centrality calculations, which vary on what they emphasize in
+determining node significance.
+
+Here are just a few.
+
+| Algorithm              | Description                                          | Method Command                 |
+|------------------------+------------------------------------------------------+--------------------------------|
+| Degree centrality      | Node is important based on degrees                   | ~nx.degree_centrality(G)~      |
+| Eigenvector centrality | Node is important if linked by other important nodes | ~nx.eigenvector_centrality(G)~ |
+| Betweenness centrality | Node is important if within shortest paths in nodes  | ~nx.betweeneess_centrality(G)~ |
+
+#+BEGIN_SRC python
+  # Calculate eigenvector centrality
+  nx.eigenvector_centrality(DG)
+#+END_SRC
+
+** Basic Graph Algorithms
+
+Describing properties of networks can only get you so far in understanding
+networks. More sophisticated methods have been developed to make use of the
+network structure itself for search and insight.
+
+*** Graph Traversal/Search
+
+Given a network, **graph traversal** is the problem of searching through a
+network for particular nodes or certain paths. A path is a sequence of edges
+between two nodes.
+
+*Situation*: social networks like to recommend friends to you and one idea is to
+find friends close enough to your current social network, who else would you
+know?
+
+#+BEGIN_SRC python
+  # Check a path can exist
+  nx.has_path(KG, 1, 20)
+
+  # Find shortest path
+  shortest_path = nx.shortest_path(KG, 1, 20)
+#+END_SRC
+
+Now we have the shortest path, we can then plot this.
+
+#+BEGIN_SRC python
+  # Plot and show shortest path between 1 and 20
+  edge_list = [(path[i], path[i+1]) for i in range(len(path) - 1)]
+  nx.draw_spring(KG, with_labels=True, node_color="lightgreen", node_size=500,
+    edgelist=edge_list, width=4, edge_color="red")
+#+END_SRC
+
+*** Community Detection
+
+In a social network, you may be interested in tightly connected group of
+friends. We can use a method called *community detection* or *module detection*
+to answer this question.
+
+#+BEGIN_SRC python
+  from networkx.algorithms import community
+
+  # Create network, calculate communities, and extract results
+  G = nx.barbell_graph(5, 1)
+  communities_generator = community.girvan_newman(G)
+  top_level_communities = next(communities_generator)
+  next_level_communities = next(communities_generator)
+  communities = sorted(map(sorted, next_level_communities))
+
+  # Setup different colors for groups and set node position
+  colors = ["black", "orange", "lightblue"]
+  positions = nx.spring_layout(G)
+
+  # Loop through communities found and plot them
+  for idx, val in enumerate(communities):
+      nx.draw_networkx_nodes(G, positions, communities[idx], node_size=100,
+                           node_color=colors[idx])
+
+  nx.draw_networkx_edges(G, positions, alpha=0.5)
+  plt.show()
+#+END_SRC
 
 * Summary
 
 - Graphs are collections of nodes/objects and edges/connections
-- NetworkX gives package to manipulate graph objects
-- There are multipleways to draw/plot the same graph
+- NetworkX gives a package to manipulate graph objects
+- There are multiple ways to draw/plot the same graph
 - Properties of the graph allow you to analyze and make inferences on network
 - Algorithms on graphs explore more sophisticated properties of graphs
+
+* Exercises
+
+** Exercise 1 Explore Random Networks
+
+Create a module that contains a function that creates a network of a certain
+size.
+
+#+BEGIN_SRC python
+
+#+END_SRC
+
+** Exercise 2 Explore Properties of Networks
+
+Using your module from the previous exercise, create a function that takes in a
+graph object and calculates the number of neighbors of each node in a graph.
+
+Return the results as a dictionary.
+
+#+BEGIN_SRC python
+
+#+END_SRC
+
+*Bonus Challenge*: Create a function and script to use the random network from the
+previous exercise, creates 10 networks of size 5, 10, 15 and use your just
+created function to return a dictionary with the average for each 
 
 * Resources
 
 - Tools
   - [[https://networkx.github.io/][NetworkX]]
+    -  [[https://networkx.github.io/documentation/stable/auto_examples/index.html][NetworkX Examples]]
   - [[http://igraph.org/][igraph]]
 - Network science
   - [[http://networksciencebook.com/][Network Science by Albert-László Barabási]]
