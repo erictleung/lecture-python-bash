@@ -68,7 +68,9 @@ There are four basic tasks for interacting with networks
 - Understanding how to use Matplotlib to visualize and plot results
 - Describe basic analysis to be done on networks
 
-* Working with Nodes and Objects
+* Creating Networks From Scratch and Manipulation
+
+** Working with Nodes and Objects
 
 | Method Command                 | Description                                   |
 |--------------------------------+-----------------------------------------------|
@@ -77,23 +79,43 @@ There are four basic tasks for interacting with networks
 | ~nx.all_neighbors(G, node)~    | Return all neighbors of node in graph         |
 | ~nx.non_neighbors(G, node)~    | Return non-neighbors of node in graph         |
 | ~nx.common_neighbors(G, u, v)~ | Return common neighbors of two nodes in graph |
+| ~G.add_node(node)~             | Add node to graph object, G                   |
+| ~G.add_nodes_from(array)~      | Add array of nodes to graph object, G         |
 
 #+BEGIN_SRC python
 # Create (empty) graph with no nodes and no edges
-G = nx.Graph()
-#+END_SRC
+DG = nx.DiGraph()
 
-* Creating Networks From Scratch and Manipulation
+# Add one node
+G.add_node("Michael")
+
+# Add multiple nodes
+G.add_nodes_from(["Andy", "Jim", "Angela"])
+
+# Look at nodes are in our object
+G.nodes()
+#+END_SRC
 
 ** Working with Edges and Connections
 
-| Method Command          | Description                        |
-|-------------------------+------------------------------------|
-| ~nx.edges(G)~           | Return edge view of edges          |
-| ~nx.number_of_edges(G)~ | Return number of edges in graph    |
-| ~nx.non_edges(G)~       | Return non-existent edges in graph |
+| Method Command             | Description                        |
+|----------------------------+------------------------------------|
+| ~nx.edges(G)~              | Return edge view of edges          |
+| ~nx.number_of_edges(G)~    | Return number of edges in graph    |
+| ~nx.non_edges(G)~          | Return non-existent edges in graph |
+| ~G.add_edge(node1, node2)~ | Add edge between node1 and node2   |
+
+#+BEGIN_SRC python
+# Add edges and connections between nodes
+DG.add_edge("Michael", "Jim")
+
+# Or add a group of edge conections all at once
+DG.add_edges_from([("Michael", "Angela"), ("Michael", "Andy"), ("Angela", "Andy")])
+#+END_SRC
 
 ** Node and Edge Attributes
+
+Nodes and edges can not only just exist, but can also take on values or *attributes*.
 
 | Type | Method Command                      | Description                                        |
 |------+-------------------------------------+----------------------------------------------------|
@@ -112,16 +134,16 @@ G = nx.Graph()
 
 ** Drawing Graphs in Different Ways
 
-There are lots of flexibility in drawing networks. You can find more
+There is lots of flexibility in drawing networks. You can find more
 [[https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.drawing.nx_pylab.draw_networkx.html#networkx.drawing.nx_pylab.draw_networkx][here in the ~draw_networkx()~ reference documentation]].
 
 *** Drawing Algorithms
 
 While it is great to create and have a network in a data structure, it is also
 important and interesting to explore these networks visually by plotting them
-in various way.
+in various ways.
 
-| Method Command        | Description                                                            |
+| Method Command        | Drawing Description                                                    |
 |-----------------------+------------------------------------------------------------------------|
 | ~nx.draw(G)~          | Draw graph with Matplotlib                                             |
 | ~nx.draw_random(G)~   | Draw graph with random layout                                          |
@@ -140,12 +162,12 @@ method.
 
 #+BEGIN_SRC python
   # Use the *_layout() functions within the draw() method
-  nx.draw(KG, pos=spring_layout(KG))
+  nx.draw(KG, pos=nx.spring_layout(KG))
 #+END_SRC
 
 *** Drawing Nodes
 
-There are a few paramters for the ~nx.draw()~ method that can manipulate node
+There are a few parameters for the ~nx.draw()~ method that can manipulate node
 properties.
 
 | Paramter       | Description                                           |
@@ -166,7 +188,7 @@ properties.
 
 Here are some parameters specific for modifying how edges are displayed.
 
-| Paramter     | Description                                               |
+| Parameter    | Description                                               |
 |--------------+-----------------------------------------------------------|
 | ~arrows~     | For directed graphs, if ~True~ draw arrowheads            |
 | ~arrowstyle~ | For directed graphs, choose style of arrow                |
@@ -219,8 +241,8 @@ Quick and basic metrics of a graph are the number of edges and nodes.
 
 *** Degree of Nodes
 
-Remember, that there are two basic kinds of graphs: directed and undirected. In
-the directed graph, there are two different kinds of edges: in and out.
+Remember, there are two basic kinds of graphs: directed and undirected. In the
+directed graph, there are two different kinds of edges: in and out.
 
 #+BEGIN_SRC python
   # Find in-degree edges
@@ -260,11 +282,11 @@ Here are just a few.
 |------------------------+------------------------------------------------------+--------------------------------|
 | Degree centrality      | Node is important based on degrees                   | ~nx.degree_centrality(G)~      |
 | Eigenvector centrality | Node is important if linked by other important nodes | ~nx.eigenvector_centrality(G)~ |
-| Betweenness centrality | Node is important if within shortest paths in nodes  | ~nx.betweeneess_centrality(G)~ |
+| Betweenness centrality | Node is important if within shortest paths in nodes  | ~nx.betweenness_centrality(G)~ |
 
 #+BEGIN_SRC python
   # Calculate eigenvector centrality
-  nx.eigenvector_centrality(DG)
+  nx.eigenvector_centrality(KG)
 #+END_SRC
 
 ** Basic Graph Algorithms
@@ -279,9 +301,9 @@ Given a network, **graph traversal** is the problem of searching through a
 network for particular nodes or certain paths. A path is a sequence of edges
 between two nodes.
 
-*Situation*: social networks like to recommend friends to you and one idea is to
-find friends close enough to your current social network, who else would you
-know?
+*Problem*: Social networks like to recommend friends to you and one idea is to
+find friends close enough to your current social network. So who else would you
+potentially know?
 
 #+BEGIN_SRC python
   # Check a path can exist
@@ -302,7 +324,7 @@ Now we have the shortest path, we can then plot this.
 
 *** Community Detection
 
-In a social network, you may be interested in tightly connected group of
+In a social network, you may be interested in tightly connected groups of
 friends. We can use a method called *community detection* or *module detection*
 to answer this question.
 
@@ -361,7 +383,8 @@ Return the results as a dictionary.
 
 *Bonus Challenge*: Create a function and script to use the random network from the
 previous exercise, creates 10 networks of size 5, 10, 15 and use your just
-created function to return a dictionary with the average for each 
+created function to return a dictionary with the average number of neighbors
+for each.
 
 * Resources
 
