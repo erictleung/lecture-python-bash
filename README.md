@@ -14,11 +14,11 @@ Lecture  materials for teaching Python's NetworkX package and Bash scripting.
 ## Requirements
 
 To run the Jupyter notebooks, you'll need Python 3.x and to install the
-appropriate packages
+appropriate packages.
 
 - Python 3.x
-- NetworkX
-- bash
+- NetworkX 2.x
+- bash shell
 
 
 ## Environment Setup
