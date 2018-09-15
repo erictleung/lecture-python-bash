@@ -90,7 +90,7 @@ Create a Python function to read in data from a given path and calculate the
 average value of a given variable name.
 
 ```python
-# Example use
+# Example
 avg_chloride_results = calculate_avg_value(data, "chlorides")
 ```
 
@@ -108,6 +108,7 @@ one of the four variables we're interested in:
 - Alcohol
 
 ```python
+# Example
 wine_paths = ["white_wine_good.csv", ...]
 avg_values = find_average_wines(wine_paths)
 ```
@@ -122,6 +123,7 @@ files. Save your dictionaries as JavaScript Object Notation (JSON) files.
 Use the built-in `json` Python package. Here's a hint on using it.
 
 ```python
+# Example on using the json package
 import json
 
 your_dictionary = {"some_date" : "date"}
@@ -136,14 +138,13 @@ Save your four results into a directory `results`.
 **Challenge**
 
 You want to automate everything as much as possible, so you want to create a
-Makefile to make everything.
-
+Makefile to make everything. There are two Make rule: `all` and `clean`.
 
 ```shell
 # Run the entire analysis
 make all
 
-# Remove all downloaded and intermediate files from data/, download/, results/
+# Remove all downloaded and created files from data/, download/, results/
 make clean
 ```
 
