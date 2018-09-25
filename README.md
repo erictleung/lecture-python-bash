@@ -7,6 +7,7 @@ Lecture  materials for teaching Python's NetworkX package and Bash scripting.
 
 - [Requirements](#requirements)
 - [Environment Setup](#environment-setup)
+    - [Binder and Jupyter Notebook](#binder-and-jupyter-notebook)
     - [Anaconda and Conda](#anaconda-and-conda)
     - [Downloading Packages](#downloading-packages)
 
@@ -22,6 +23,14 @@ appropriate packages.
 
 
 ## Environment Setup
+
+### Binder and Jupyter Notebook
+
+If you cannot setup Jupyter Notebooks locally, you can launch the lectures
+through your browser directly with the link below.
+
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/erictleung/lecture-python-bash/master?filepath=notebooks)
+
 
 ### Anaconda and Conda
 

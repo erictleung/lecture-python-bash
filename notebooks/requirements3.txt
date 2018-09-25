@@ -1,0 +1,3 @@
+# These will be installed to the Python 3 environment
+matplotlib
+networkx
