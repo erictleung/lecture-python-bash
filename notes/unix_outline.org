@@ -4,6 +4,28 @@
 #+STARTUP: entitiespretty
 #+PROPERTY: header-args :results value verbatim replace :exports both :tangle yes
 
+* Getting Started
+
+Open a terminal window (use PuTTY if you are a Windows user) so you can connect
+to the Linux server and try out the commands demonstrated in this lecture.
+
+First, let's all SSH into ~state~.
+
+#+BEGIN_SRC sh
+  ssh <username>@state.ohsu.edu
+#+END_SRC
+
+And navigate to your folder.
+
+#+BEGIN_SRC sh
+  cd /home/courses/BMI565/students/<username>
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  ;; Remove all results blocks from below code blocks
+  (org-babel-map-src-blocks nil (org-babel-remove-result))
+#+END_SRC
+
 * Unix and Linux Background
 
 - Unix is operating system developed at Bell labs in 1970s
@@ -19,12 +41,12 @@
   - Arch Linux = simple, lightweight distribution
   - More at https://distrowatch.com/
 
-- Linux mascot is Tux the penguin
-
 - Linux is widely used in scientific computing
   - Free (price and in source code) operating system
   - Decades of development and debugging
   - Configuration is arguably easier
+
+- Linux mascot is Tux the penguin
 
 * Basic Linux Commands
 ** Navigation Commands
@@ -34,9 +56,9 @@ you around your computer.
 
 | Command | Description             | Plain Words                         |
 |---------+-------------------------+-------------------------------------|
-| pwd     | Print working directory | Your location in your computer      |
-| ls      | List directory contents | Look at what's around your location |
-| cd      | Change directory        | Move your position in your computer |
+| ~pwd~   | Print working directory | Your location in your computer      |
+| ~ls~    | List directory contents | Look at what's around your location |
+| ~cd~    | Change directory        | Move your position in your computer |
 
 In sum, the above commands help you navigate around your computer.
 
@@ -45,11 +67,9 @@ In sum, the above commands help you navigate around your computer.
 You can use ~pwd~ to show you where you are in your computer.
 
 #+BEGIN_SRC sh
+  # Print out working directory
   pwd
 #+END_SRC
-
-#+RESULTS:
-: /home/leunge/documents/github/lecture-python-bash/notes
 
 *** ls
 
@@ -68,10 +88,9 @@ interesting to you.
 | -X     | Group by file type/extension         |
 
 #+BEGIN_SRC sh
+  # List out files in your working directory
   ls
 #+END_SRC
-
-#+RESULTS:
 
 *** cd
 
@@ -86,6 +105,7 @@ Here are some key character to know when using ~cd~.
   - E.g. ~cd ..~ = goes up
 
 #+BEGIN_SRC sh
+  # Briefly explore the computer with printing where you are with pwd
   pwd
   cd ../
   pwd
@@ -100,9 +120,9 @@ commands.
 #+NAME: fig:echocat
 | Command | Description                               |
 |---------+-------------------------------------------|
-| echo    | Displays lines                            |
-| head    | Prints first few lines                    |
-| cat     | Prints entire file and concatenates files |
+| ~echo~  | Displays lines                            |
+| ~head~  | Prints first few lines                    |
+| ~cat~   | Prints entire file and concatenates files |
 
 *** echo
 
@@ -114,13 +134,9 @@ Some reasons you may want to use ~echo~ are:
 - printing file names
 
 #+BEGIN_SRC sh
+  # Print to the screen some text
   echo "Hello, World!"
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-Hello, World!
-:END:
 
 *** head
 
@@ -129,22 +145,9 @@ The ~head~ command will show just the beginning lines of a given file.
 By default, this command will show the first 10 lines of a file.
 
 #+BEGIN_SRC sh
-  head ../README.md
+  # Take a look at the first few lines of a file
+  head /home/courses/BMI565/examples/test.py
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-# Teaching Python's NetworkX and Bash
-
-Lecture  materials for teaching Python's NetworkX package and Bash scripting.
-
-
-**Contents**
-
-- [Requirements](#requirements)
-- [Environment Setup](#environment-setup)
-    - [Anaconda and Conda](#anaconda-and-conda)
-:END:
 
 *** cat
 
@@ -155,12 +158,9 @@ This command can also be used to *concatenate* or join multiple files
 together.
 
 #+BEGIN_SRC sh
-  cat ../src/Makefile ../src/Makefile
+  # Print contents of a file to the terminal
+  cat /home/courses/BMI565/examples/test.py
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-:END:
 
 ** File Manipulations
 
@@ -188,11 +188,10 @@ The ~touch~ command is used for creating empty files quickly.
 This can be useful in creating a skeleton of an analysis workflow.
 
 #+BEGIN_SRC sh
+  # Create a new empty file quickly (make sure you are in your own directory)
   touch new_file_1.txt
   ls
 #+END_SRC
-
-#+RESULTS:
 
 *** cp
 
@@ -201,6 +200,7 @@ Now that we have some files, you can create more with ~cp~.
 The ~cp~ command is used to *copy* files and directories.
 
 #+BEGIN_SRC sh
+  # Create a new copy of file
   cp new_file_1.txt new_file_2.txt
   ls
 #+END_SRC
@@ -212,20 +212,21 @@ The ~mv~ command is used to *move* files and directories around your computer.
 Another use for this command is to *rename* things on your computer.
 
 #+BEGIN_SRC sh
+  # "Rename" file by copying to new name
   mv new_file_2.txt new_file_2_update.txt
   ls
 #+END_SRC
 
 *** rm
 
-The ~rm~ command *removes/deletes* files and directories around your
-computer.
+The ~rm~ command *removes/deletes* files and directories around your computer.
 
 This command is very powerful so use with caution. There are lots of jokes with
 telling new coders to just delete their entire computer or database. Don't fall
 for this.
 
 #+BEGIN_SRC sh
+  # Delete and remove files with rm
   rm new_file_2_update.txt
   ls
 #+END_SRC
@@ -241,6 +242,7 @@ The ~mkdir~ command *makes* directories, while the ~rmdir~ command *removes*
 Let's create a new directory with ~mkdir~.
 
 #+BEGIN_SRC sh
+  # Create new folders/directories
   mkdir new_dir
   cd new_dir
   pwd
@@ -251,6 +253,7 @@ We may eventually want to remove a directory for various reasons. We can remove
 limited than the ~rm~ command we just learned about.
 
 #+BEGIN_SRC sh
+  # Delete new (empty) directories
   rmdir new_dir
   ls
 #+END_SRC
@@ -271,7 +274,6 @@ controlling what files can be accessed and use by who.
 File permissions are properties of every file/directory on your computer and
 dictate *what* (type of action) can be done by *who* (groups). There are three
 groups for each type of action and types of groups.
-
 
 *** Permission Types
 
@@ -296,8 +298,9 @@ There are three permission groups:
 Let's create file to play around with its file permissions.
 
 #+BEGIN_SRC sh
+  # Create a new empty file and explore file permissions
   touch restricted_file.txt
-  ls -l
+  ls -l  # List of files with extra information
 #+END_SRC
 
 The ~chmod~ command stands for *change file mode*, which refers to the number
@@ -305,7 +308,7 @@ of modes (or types) of permissions a file can have.
 
 This allows you to specify *who* has which permission *type*.
 
-There are two ways to manipulate a file/directory's:
+There are two ways to manipulate a file/directory's permissions:
 
 - Octal representation :: using binary and numbers
 - Symbolic representation :: letters and semantics (easier to remember, IMO)
@@ -357,6 +360,7 @@ For example, to give *read,write* (4 + 2 = 6) to user and just *read* (4) to
 both group and others, you can run the following command with ~chmod~:
 
 #+BEGIN_SRC sh
+  # Change permissions of our file
   chmod 644 restricted_file.txt
   ls -l
 #+END_SRC
@@ -401,6 +405,7 @@ and others, ...
 you can run the following:
 
 #+BEGIN_SRC sh
+  # Change files permissions with symbols
   chmod u=rw,g=r,o=r restricted_file.txt
   ls -l
 #+END_SRC
@@ -422,15 +427,15 @@ One important environmental variable is your ~PATH~ variable. This variable
 controls how your computer searches for programs/software.
 
 #+BEGIN_SRC sh
+  # Check where the python interpreter is
   which python
 #+END_SRC
-
-#+RESULTS:
 
 You can access environment variables using the dollar sign, ~$~, in front of
 the variable name.
 
 #+BEGIN_SRC sh
+  # Print out our PATH variable
   echo $PATH
 #+END_SRC
 
@@ -438,6 +443,7 @@ You can manipulate your path variable with an equals sign, ~=~, to append new
 parts of the path to the new one using a colon, ~:~.
 
 #+BEGIN_SRC sh
+  # Edit our path by adding the ~/bin directory
   echo $PATH
   PATH=~/bin:$PATH
   echo $PATH
@@ -449,6 +455,7 @@ For changes to be seen from any script and subshell called from this shell,
 you'll need to *export* your path variable.
 
 #+BEGIN_SRC sh
+  # Update the terminal's knowledge of the $PATH variable
   export PATH
 #+END_SRC
 
@@ -493,15 +500,10 @@ You can use the ~>~ (greater than symbol) character to take the output of one
 program to output and write to another file.
 
 #+BEGIN_SRC sh
+  # Take output of command and redirect it to a file
   ls ../ > list_of_files.txt
   head list_of_files.txt
 #+END_SRC
-
-#+RESULTS:
-| notebooks |
-| notes     |
-| README.md |
-| src       |
 
 *** Output and Append with >>
 
@@ -516,46 +518,19 @@ This double greater than sign will add to the bottom of the file.
   # The -e flag tells echo to interpret the backslash
   echo -e "\nCompare with sorted list" >> list_of_files.txt
 
+  # Instead of overwriting a file, let's just append to it
   ls -lt ../ >> list_of_files.txt
   cat list_of_files.txt
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-notebooks
-notes
-README.md
-src
-
-Compare with sorted list
-total 8
-drwxr-xr-x+ 1 leunge Domain Users    0 Sep  5 13:01 notes
-drwxr-xr-x+ 1 leunge Domain Users    0 Aug 23 15:49 notebooks
-drwxr-xr-x+ 1 leunge Domain Users    0 Aug 23 15:37 src
--rw-r--r--+ 1 leunge Domain Users 2234 Aug 23 10:45 README.md
-:END:
 
 *** Input with <
 
 You can also redirect files *into* commands using the less than symbol, ~<~.
 
 #+BEGIN_SRC sh
+  # Take file and input it to a command
   head < list_of_files.txt
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-notebooks
-notes
-README.md
-src
-
-Compare with sorted list
-total 8
-drwxr-xr-x+ 1 leunge Domain Users    0 Sep  5 13:01 notes
-drwxr-xr-x+ 1 leunge Domain Users    0 Aug 23 15:49 notebooks
-drwxr-xr-x+ 1 leunge Domain Users    0 Aug 23 15:37 src
-:END:
 
 Now although this example is superfluous, I hope the concept still shines
 through.
@@ -568,27 +543,20 @@ output from one command to another
 Let's look at what we have so far in our directory.
 
 #+BEGIN_SRC sh
+  # Remind ourselves what is in our working directory
   ls
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-#unix_outline.org#
-list_of_files.txt
-unix_outline.org
-:END:
 
 Now, say I only want to look at only two entries with the ~head~ command.
 
 #+BEGIN_SRC sh
+  # Pipe output of command into another
   ls | head -n 2
-#+END_SRC
 
-#+RESULTS:
-:RESULTS:
-#unix_outline.org#
-list_of_files.txt
-:END:
+  # same example but taking more steps
+  ls > all_files.txt
+  head -n 2 all_files.txt
+#+END_SRC
 
 ** Resources and More
 
@@ -597,6 +565,8 @@ list_of_files.txt
 - [[https://robots.thoughtbot.com/input-output-redirection-in-the-shell][Input/Output Redirection in the Shell (thoughtbot)]]
 - [[https://en.wikipedia.org/wiki/Pipeline_(Unix)][Pipeline (Wikipedia)]]
 - [[http://www.catonmat.net/blog/bash-one-liners-explained-part-three/][Bash One-Liners Explained, Part III: All about redirections]]
+
+* Exercise Break! (See below)
 
 * File Manipulation with Built-In Tools
 
@@ -659,29 +629,15 @@ columns/fields in the file, which may be useful in manipulating the file.
 Now that we have the general syntax, let's try out some ~awk~ commands.
 
 #+BEGIN_SRC sh
+  # Reminder rof what the -l flag does
   ls -l
+#+END_SRC
+
+#+BEGIN_SRC sh
+  # Examples of awk and potential actions
   ls -l | awk '{ print $6 " " $10 }'
   ls -l | awk '{ print $6 * 2 }'
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-total 113
--rw-r--r--+ 1 leunge Domain Users 28946 Sep  5 19:04 #unix_outline.org#
--rw-r--r--+ 1 leunge Domain Users   302 Sep  5 13:01 list_of_files.txt
--rw-r--r--+ 1 leunge Domain Users 50823 Sep  5 14:35 unix_outline.html
--rw-r--r--+ 1 leunge Domain Users 24879 Sep  5 14:29 unix_outline.org
- 
-28946 #unix_outline.org#
-302 list_of_files.txt
-50823 unix_outline.html
-24879 unix_outline.org
-0
-57892
-604
-101646
-49758
-:END:
 
 *** Resources and more
 
@@ -700,11 +656,9 @@ manipulating tabular data, ~sed~ is used to read in text and transform it.
 A simple use of ~sed~ is for replacing text.
 
 #+BEGIN_SRC sh
+  # Use sed to replace day and night
   echo Sunday | sed 's/day/night/'
 #+END_SRC
-
-#+RESULTS:
-: Sunnight
 
 *** Resources and more
 
@@ -722,29 +676,17 @@ It goes through each line to cut parts of it based on:
 - field
 
 #+BEGIN_SRC sh
+  # Splice and dice tabular output, taking first 10 columns/bytes
   ls -l
   ls -l | cut -b 1-10
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-total 113
--rw-r--r--+ 1 leunge Domain Users 29867 Sep  5 19:25 #unix_outline.org#
--rw-r--r--+ 1 leunge Domain Users   302 Sep  5 13:01 list_of_files.txt
--rw-r--r--+ 1 leunge Domain Users 50823 Sep  5 14:35 unix_outline.html
--rw-r--r--+ 1 leunge Domain Users 24879 Sep  5 14:29 unix_outline.org
-total 113
--rw-r--r--
--rw-r--r--
--rw-r--r--
--rw-r--r--
-:END:
 
 ** sort - put items in order
 
 As the name implies, the ~sort~ command will order a list of items.
 
 #+BEGIN_SRC sh
+  # Rearrange list of items
   ls | sort
 #+END_SRC
 
@@ -784,16 +726,10 @@ Arithmetic modifiers can be used to specify values.
   find . -atime -3 -name "*.txt"
 #+END_SRC
 
-#+RESULTS:
-:RESULTS:
-./list_of_files.txt
-:END:
-
 *** Resources and more
 
 - [[https://www.tecmint.com/35-practical-examples-of-linux-find-command/][35 Practical Examples of Linux Find Command]]
 - [[https://kb.iu.edu/d/admm][Use the Unix find command to search for files]]
-
 * Bash Scripting
 
 Similar to Python scripting, bash scripting is a quick way to:
@@ -809,12 +745,10 @@ variable. This is a built-in variable, but you can also create variables
 yourself.
 
 #+BEGIN_SRC sh
+  # Save and echo out variables
   university="Oregon Health & Science University"
   echo $university
 #+END_SRC
-
-#+RESULTS:
-: Oregon Health & Science University
 
 Mind that there should be *no space* around the equals sign.
 
@@ -825,12 +759,10 @@ Just a tease of what variables can do, you can save the output of one command
 into a variable and then use it later.
 
 #+BEGIN_SRC sh
+  # Quick assignment of command output to variables
   file_list=$(ls)
   echo $file_list
 #+END_SRC
-
-#+RESULTS:
-: #unix_outline.org# unix_outline.html unix_outline.org
 
 ** Pass In Arguments
 
@@ -857,34 +789,13 @@ create a test file.
   cat test_file.txt
 #+END_SRC
 
-#+RESULTS:
-:RESULTS:
-#!/usr/bin/env bash
-filename=$1
-
-if [ -r $filename ]; then
-  linecount=$(wc -l < $filename)
-  printf "%s has %d lines\n" $filename $linecount
-fi
-
-This
-file
-has
-seven
-lines
-in
-it
-:END:
-
 Now we can run the script we just created using the file we want as an
 *argument*.
 
 #+BEGIN_SRC sh
+  # Read in command line arguments
   bash count_lines.sh test_file.txt
 #+END_SRC
-
-#+RESULTS:
-: test_file.txt has 7 lines
 
 ** Control Structures
 
@@ -906,7 +817,10 @@ The general syntax using conditional is:
 Here's a working example using ~if~ statements
 
 #+BEGIN_SRC sh
+  # Set variable
   object="food"
+
+  # Check if variable is car or food
   if [ $object == "car" ]; then
     echo "This is a car"
   elif [ $object == "food" ]; then
@@ -915,11 +829,6 @@ Here's a working example using ~if~ statements
     echo "I don't know what this is"
   fi
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-This is food
-:END:
 
 **** Resources and more
 
@@ -977,6 +886,8 @@ still met.
 
 #+BEGIN_SRC sh
   COUNTER=0
+
+  # Check COUNTER being less than 10
   while [ $COUNTER -lt 10 ]; do
     echo The counter is $COUNTER
 
@@ -984,20 +895,6 @@ still met.
     let COUNTER+=1
   done
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-The counter is 0
-The counter is 1
-The counter is 2
-The counter is 3
-The counter is 4
-The counter is 5
-The counter is 6
-The counter is 7
-The counter is 8
-The counter is 9
-:END:
 
 *** for loops
 
@@ -1016,19 +913,6 @@ type of loop, however, loops over a list of items until that list is done.
     echo $i
   done
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-1
-2
-3
-4
-
-1
-2
-3
-4
-:END:
 
 ** Exit Status Indicators for Scripts
 
@@ -1053,15 +937,10 @@ To access the exit code of the previous script, you can use the ~$?~ variable.
   echo $?
 #+END_SRC
 
-#+RESULTS:
-:RESULTS:
-2
-127
-:END:
-
 Here is how you could use these within your own bash scripts.
 
 #+BEGIN_SRC sh
+  # Create bash script
   echo "#!/usr/bin/env bash
 
   head -n 1 ../README.md
@@ -1072,14 +951,9 @@ Here is how you could use these within your own bash scripts.
     echo 'Failed to read beginning of file'; exit 1
   fi" > test_exit_codes.sh
 
+  # Run bash script from above
   bash test_exit_codes.sh
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-# Teaching Python's NetworkX and Bash
-Successfully read beginning of file
-:END:
 
 *** Resources and more
 
@@ -1114,10 +988,6 @@ For simple file downloads, there isn't much of a difference in use.
   # Do the same thing, but name the downloaded file differently
   curl -o zen.txt https://raw.githubusercontent.com/python/peps/master/pep-0020.txt
 #+END_SRC
-
-#+RESULTS:
-:RESULTS:
-:END:
 
 *** wget
 
@@ -1216,6 +1086,8 @@ server.
 - [[https://www.cyberciti.biz/faq/scp-exclude-files-when-using-command-recursively-on-unix-linux/][How to exclude file when using scp command recursively]]
 - [[https://www.cyberciti.biz/faq/sftp-file-from-server-to-another-in-unix-linux/][Unix / Linux: sftp File From One Server To Another]]
 
+* Exercise Break! (See below)
+
 * Miscellaneously Useful Tools
 
 Below are a handful of useful tools that may be useful in the future to work
@@ -1248,6 +1120,9 @@ multiplexer.
 
   # Look at running sessions
   screen -ls
+
+  # Create named screen session without attaching
+  screen -dmS myscreen
 #+END_SRC
 
 The main key to invoke changes or to control Screen is ~Ctrl+a~. The following
@@ -1341,13 +1216,16 @@ error.
 
 *** Basic Example
 
-Here is a basic Makefile that will count the words of a file and save the
-results into the file ~word_count.txt~.
+Here is a basic Makefile (named as ~Makefile~ in your directory) that will
+count the words of a file and save the results into the file ~word_count.txt~.
 
 #+BEGIN_SRC makefile :eval no
   word_count.txt : file_with_words.txt
        wc file_with_words.txt > word_count.txt
 #+END_SRC
+
+While the ~Makefile~ is in your working directory, you can run ~make~ in your
+terminal to run the rule.
 
 *** More Advanced Example
 
@@ -1456,11 +1334,16 @@ file.
 
 The data can be found [[https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/][here]].
 
+*Hint*: Use ~wget/curl~ to download the file and ~awk~ to subset data.
+
 ** Exercise 3 Search for Codons
 
 Using the random DNA sequence Python script from Exercise 1, generate a random
 sequence of DNA and count the number of times the DNA sequence "TAA" (a stop
 codon).
+
+*Hint*: Use ~grep~ to count number of occurrence. You can use the ~-c~ flag for
+~grep~ to count things.
 
 *Bonus*: Simultaneously find all three stop codons: "TAA", "TAG", "TGA" and
 count them each.
