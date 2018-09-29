@@ -1,6 +1,7 @@
-# Homework
+# BMI 565/665 Bioinformatics Programming and Scripting
 
 Submit source code and write-up (including program output) through Sakai.
+
 
 ## Background
 
@@ -52,14 +53,12 @@ You like to deal with comma-separated files (CSVs). Unfortunately, you find out
 that the data comes in a "semi-colon" separated file.
 
 Use `sed` to convert these "semi-colon" separated files into a comma-separated
-files.
-
-Save these converted data into the directory `data`.
+files, and save these converted data into the directory `data`.
 
 
 **Subset Data**
 
-For your analysis you only want a couple physicochemical variables to check.
+For your analysis, you only want a couple physicochemical variables to check.
 There are a total of 12 variables, but you're only interested in:
 
 - Citric acid
@@ -79,28 +78,28 @@ for good wine.
 | `white_wine_poor.csv` | <= 5              | Poor quality white wine |
 | `white_wine_good.csv` | > 5               | Good quality white wine |
 
+**Hint**: `awk` can be used to quickly subset the data and create the 4 files.
+
 Put there four files into the `data` directory.
 
 
 **Compare Low and High Quality**
 
-Let's use Python to help us figure out what makes wine good or not.
-
-Create a Python function to read in data from a given path and calculate the
-average value of a given variable name.
+Now use Python code to determine what makes wine good or not. Create a Python
+function to read in data from a given path and calculate the average value of a
+given variable name.
 
 ```python
 # Example
 avg_chloride_results = calculate_avg_value(data, "chlorides")
 ```
 
-You want to be lazy and automate as much as possible. So let's create a Python
-function that takes in an array of the file names and returns a dictionary.
+You want to automate this as much as possible. So create a Python function
+that takes in a list of the file names and returns a dictionary.
 
-The dictionary will have four keys equal to just the file names they come from
-e.g.  the key of `white_wine_good.csv` will be `white_wine_good`. The values of
-each key will be another dictionary with each key being the average value of
-one of the four variables we're interested in:
+The dictionary will have four keys equal to the file names (e.g.  the key of `white_wine_good.csv` will be `white_wine_good`). The values of
+each filename key will be another dictionary with keys being the averages of
+each variable:
 
 - Citric acid
 - Chlorides
@@ -116,37 +115,16 @@ avg_values = find_average_wines(wine_paths)
 
 **Save Results**
 
-
-Write a Python function to save your dictionary of results to four separate
-files. Save your dictionaries as JavaScript Object Notation (JSON) files.
-
-Use the built-in `json` Python package. Here's a hint on using it.
-
-```python
-# Example on using the json package
-import json
-
-your_dictionary = {"some_date" : "date"}
-f = open('destFile.txt', 'w+')
-f.write(json.dumps(your_dictionary))
-f.close()
-```
-
-Save your four results into a directory `results`.
+Use the `cPickle` Python module to save the resulting dictionary to a file in a
+directory called `results` (Note: you'll have to create this directory
+beforehand).
 
 
-**Challenge**
+**Wrap-Up Workflow**
 
-You want to automate everything as much as possible, so you want to create a
-Makefile to make everything. There are two Make rule: `all` and `clean`.
-
-```shell
-# Run the entire analysis
-make all
-
-# Remove all downloaded and created files from data/, download/, results/
-make clean
-```
+Now, to automate the entire workflow, create bash scripts that will
+automatically download and subset the data, then run the analysis (calculating
+average values) and save the results.
 
 
 ## Homework File Structure
@@ -156,8 +134,8 @@ analysis.
 
 ```
 .
-|-- analyze_wine.py
-|-- analysis.sh
+|-- LastName_hw2.sh
+|-- LastName_analyze_wine.py
 |-- data/
 |-- results/
 `-- download/
@@ -169,3 +147,5 @@ analysis.
 - A single bash script to automate your analysis
 - A Python script to calculate the average citric acid, chlorides, pH, and
   alcohol values of good and poor quality red and white wine.
+- A brief write-up describing the workflow that was implemented and results
+  produced (`LastName_hw2.doc`)
