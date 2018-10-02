@@ -629,14 +629,14 @@ columns/fields in the file, which may be useful in manipulating the file.
 Now that we have the general syntax, let's try out some ~awk~ commands.
 
 #+BEGIN_SRC sh
-  # Reminder rof what the -l flag does
+  # Reminder of what the -l flag does
   ls -l
 #+END_SRC
 
 #+BEGIN_SRC sh
   # Examples of awk and potential actions
-  ls -l | awk '{ print $6 " " $10 }'
-  ls -l | awk '{ print $6 * 2 }'
+  ls -l | awk '{ print $6 " " $9 }'
+  ls -l | awk '{ print $7 * 2 }'
 #+END_SRC
 
 *** Resources and more
@@ -657,6 +657,8 @@ A simple use of ~sed~ is for replacing text.
 
 #+BEGIN_SRC sh
   # Use sed to replace day and night
+  # Basic regular expressions:
+  #   s/<find this...>/<...and replace with this>/
   echo Sunday | sed 's/day/night/'
 #+END_SRC
 
