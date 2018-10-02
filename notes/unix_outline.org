@@ -21,7 +21,7 @@ And navigate to your folder.
   cd /home/courses/BMI565/students/<username>
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results silent
   ;; Remove all results blocks from below code blocks
   (org-babel-map-src-blocks nil (org-babel-remove-result))
 #+END_SRC
