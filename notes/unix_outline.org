@@ -605,6 +605,26 @@ each line if it matches some pattern. If it does, the action will be executed.
   END {...}
 #+END_SRC
 
+*Note*: The ~BEGIN~ and ~END~ are known as *startup* and *cleanup* actions,
+respectively. Each of them are executed only once. The ~BEGIN~ content is
+executed before the input record is read in, while the ~END~ content is
+executed after the input record is done being read in.
+
+#+BEGIN_SRC sh
+  # List student directories
+  ls -l /home/courses/BMI565/students
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC sh
+  # Example pipe list of directories and count them
+  ls -l /home/courses/BMI565/students | awk '
+    BEGIN { print "Analyzing student directory..." }
+    /^drw/ { ++n }
+    END { print "There are", n, "number of directories." }'
+#+END_SRC
+
 *** Built-in variables
 
 There are some built-in variables that can be used to make using ~awk~ more
@@ -621,7 +641,7 @@ columns/fields in the file, which may be useful in manipulating the file.
 | NF       | Number of fields/columns          | ~awk '{print NR,"->",NF;}'~      |
 | FILENAME | Name of current file              | ~awk '{print FILENAME}'~         |
 | FNR      | Number of records rel. to current | ~awk '{print FILENAME, FNR;}'~   |
-| $0       | The entire line                   | ~awk '{print $0;}`~              |
+| $0       | The entire line                   | ~awk '{print $0;}'~              |
 | $n       | The nth field number              | ~awk '{print $1;}'~              |
 
 *** Examples
@@ -630,13 +650,25 @@ Now that we have the general syntax, let's try out some ~awk~ commands.
 
 #+BEGIN_SRC sh
   # Reminder of what the -l flag does
-  ls -l
+  ls -l /home/courses/BMI565/students
 #+END_SRC
 
 #+BEGIN_SRC sh
-  # Examples of awk and potential actions
-  ls -l | awk '{ print $6 " " $9 }'
-  ls -l | awk '{ print $7 * 2 }'
+  # Examples of awk and potential extracting and manipulating information
+  ls -l /home/courses/BMI565/students | awk '{ print $6,$9 }'
+#+END_SRC
+
+#+BEGIN_SRC sh
+  # Do some manipulation of entries
+  ls -l /home/courses/BMI565/students | awk '{ print $7 * 2 }'
+#+END_SRC
+
+#+BEGIN_SRC sh
+  # More advanced example
+  ls -l /home/courses/BMI565/students | awk '
+    BEGIN { print "Checking dates of user directories..." }
+    $8 < 15 { print $NF, "was edited earlier in that month" }
+    END { print "There were a total of", NR, "users." }'
 #+END_SRC
 
 *** Resources and more
@@ -647,6 +679,7 @@ Now that we have the general syntax, let's try out some ~awk~ commands.
 - [[http://www.grymoire.com/Unix/Awk.html][Awk (Grymoire)]]
 - [[https://ss64.com/bash/awk.html][awk or gawk (GNU awk)]]
 - [[https://github.com/learnbyexample/Command-line-text-processing/blob/master/gnu_awk.md][Learn by Example awk]]
+- [[https://www.gnu.org/software/gawk/manual/html_node/Using-BEGIN_002fEND.html][Startup and Cleanup Actions with BEGIN and END]]
 
 ** sed - edit streams of text
 
