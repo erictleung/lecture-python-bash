@@ -145,7 +145,7 @@ The ~head~ command will show just the beginning lines of a given file.
 By default, this command will show the first 10 lines of a file.
 
 #+BEGIN_SRC sh
-  # Take a look at the first few lines of a file
+  # Print contents of a file to the terminal
   head /home/courses/BMI565/examples/test.py
 #+END_SRC
 
@@ -1377,8 +1377,8 @@ Using the random DNA sequence Python script from Exercise 1, generate a random
 sequence of DNA and count the number of times the DNA sequence "TAA" (a stop
 codon).
 
-*Hint*: Use ~grep~ to count number of occurrence. You can use the ~-c~ flag for
-~grep~ to count things.
+*Hint*: Use ~grep~ to count number of occurrence. You can use the ~-o~ flag for
+~grep~ to extract matches and ~wc~ to count.
 
 *Bonus*: Simultaneously find all three stop codons: "TAA", "TAG", "TGA" and
 count them each.
