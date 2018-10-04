@@ -97,9 +97,9 @@ avg_chloride_results = calculate_avg_value(data, "chlorides")
 You want to automate this as much as possible. So create a Python function
 that takes in a list of the file names and returns a dictionary.
 
-The dictionary will have four keys equal to the file names (e.g.  the key of `white_wine_good.csv` will be `white_wine_good`). The values of
-each filename key will be another dictionary with keys being the averages of
-each variable:
+The dictionary will have four keys equal to the file names (e.g.  the key of
+`white_wine_good.csv` will be `white_wine_good`). The values of each filename
+key will be another dictionary with keys being the averages of each variable:
 
 - Citric acid
 - Chlorides
